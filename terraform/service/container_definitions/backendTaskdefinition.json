@@ -1,0 +1,38 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "front-webapp",
+      "image": "326324184951.dkr.ecr.ap-northeast-1.amazonaws.com/backend:latest",
+      "cpu": 333,
+      "memoryReservation": 600,
+      "portMappings": [
+        {
+          "containerPort": 3001,
+          "hostPort": 0,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "command": ["go", "run", "main.go"],
+      "environment": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "secrets": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "front-service",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "service"
+        }
+      }
+    }
+  ],
+  "family": "backend-service",
+  "executionRoleArn": "arn:aws:iam::326324184951:role/ecs-task-role",
+  "networkMode": "bridge",
+
+  "volumes": [],
+
+  "placementConstraints": []
+}

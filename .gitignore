@@ -1,0 +1,11 @@
+.mysql_history
+pry_history
+misc.xml
+vcs.xml
+modules.xml
+workspace.xml
+codeStyleConfig.xml
+.pry_history
+db
+.env
+backend/tmp/build-errors.log
