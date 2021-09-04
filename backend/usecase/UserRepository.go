@@ -3,7 +3,7 @@ package usecase
 import (
 	"github.com/jinzhu/gorm"
 
-	"github.com/psychedelicnekopunch/gin-clean-architecture/app/domain"
+	"github.com/DaichiHoshina/repgram_gin/backend/domain"
 )
 
 type UserRepository interface {

@@ -3,8 +3,8 @@ package controllers
 import (
 	"strconv"
 
-	"github.com/psychedelicnekopunch/gin-clean-architecture/app/interfaces/database"
-	"github.com/psychedelicnekopunch/gin-clean-architecture/app/usecase"
+	"github.com/DaichiHoshina/repgram_gin/backend/interfaces/database"
+	"github.com/DaichiHoshina/repgram_gin/backend/usecase"
 )
 
 type UsersController struct {
