@@ -24,17 +24,17 @@ func NewConfig() *Config {
 
     c := new(Config)
 
-    c.DB.Production.Host = "localhost"
-    c.DB.Production.Username = "username"
+    c.DB.Production.Host = "repgram_db"
+    c.DB.Production.Username = "root"
     c.DB.Production.Password = "password"
-    c.DB.Production.DBName = "db_name"
+    c.DB.Production.DBName = "my_db"
 
-    c.DB.Test.Host = "localhost"
-    c.DB.Test.Username = "username"
+    c.DB.Test.Host = "repgram_db"
+    c.DB.Test.Username = "root"
     c.DB.Test.Password = "password"
-    c.DB.Test.DBName = "db_name_test"
+    c.DB.Test.DBName = "my_db_test"
 
-    c.Routing.Port = ":8080"
+    c.Routing.Port = ":3006"
 
     return c
 }
