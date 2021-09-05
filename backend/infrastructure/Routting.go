@@ -13,6 +13,7 @@ type Routing struct {
 }
 
 func NewRouting(db *DB) *Routing {
+		c := NewConfig()
     r := &Routing{
         DB: db,
         Gin: gin.Default(),

@@ -1,4 +1,4 @@
-module github.com/DaichiHoshina/go_react_app/backend
+module github.com/DaichiHoshina/repgram_gin/backend
 
 go 1.16
 

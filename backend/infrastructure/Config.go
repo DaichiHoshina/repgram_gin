@@ -27,14 +27,14 @@ func NewConfig() *Config {
     c.DB.Production.Host = "repgram_db"
     c.DB.Production.Username = "root"
     c.DB.Production.Password = "password"
-    c.DB.Production.DBName = "my_db"
+    c.DB.Production.DBName = "mydb"
 
     c.DB.Test.Host = "repgram_db"
     c.DB.Test.Username = "root"
     c.DB.Test.Password = "password"
-    c.DB.Test.DBName = "my_db_test"
+    c.DB.Test.DBName = "mydb"
 
-    c.Routing.Port = ":3006"
+    c.Routing.Port = ":3001"
 
     return c
 }
