@@ -1,6 +1,4 @@
 package usecase
-
-
 type ResultStatus struct {
 	Error error
 	StatusCode int
