@@ -20,7 +20,7 @@ func main() {
 
 	db := infrastructure.NewDB()
 
-	db.Connection.AutoMigrate(&domain.Users{})
+	db.Connection.AutoMigrate(&domain.User{})
 	// db.AutoMigrate(&model.Presentation{})
 	// db.AutoMigrate(&model.Like{})
 }

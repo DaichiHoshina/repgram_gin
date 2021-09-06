@@ -7,6 +7,10 @@ import (
 )
 
 type Users struct {
+	User User `json:"users"`
+}
+
+type User struct {
 	gorm.Model
 	ID        int       `json:"id"`
 	Name      string    `json:"name"`
@@ -18,21 +22,17 @@ type Users struct {
 	// Likes         []Like         `gorm:"foreignKey:UserID"`
 }
 
-type UsersForGet struct {
-	ID    int     `json:"id"`
-	Name  string  `json:"screenName"`
-	Email *string `json:"email"`
+type UserForGet struct {
+	ID    int    `json:"id"`
+	Name  string `json:"screenName"`
+	Email string `json:"email"`
 }
 
-func (u *Users) BuildForGet() UsersForGet {
-	user := UsersForGet{}
+func (u *User) BuildForGet() UserForGet {
+	user := UserForGet{}
 	user.ID = u.ID
 	user.Name = u.Name
-	if u.Email != nil {
-		user.Email = u.Email
-	} else {
-		empty := ""
-		user.Email = &empty
-	}
+	user.Email = u.Email
+
 	return user
 }
