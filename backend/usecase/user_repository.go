@@ -7,5 +7,5 @@ import (
 )
 
 type UserRepository interface {
-    FindByID(db *gorm.DB, id int) (user domain.Users, err error)
+	FindByID(db *gorm.DB, id int) (user domain.Users, err error)
 }
