@@ -1,9 +1,13 @@
 package domain
 
+type Users struct {
+	User User `json:"users"`
+}
+
 type User struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
-	Email string    `json:"email" gorm:"unique"`
+	Email string `json:"email" gorm:"unique"`
 	// CedAt timeme `json:"created_at"`
 	// Ima   str    `json:"image"`
 	// Password  []byte    `json:"password"`

@@ -32,7 +32,7 @@ services:
       DB_PORT: 3306
       DB_NAME: mydb
       DB_ROOTPASS: password
-      DB_USERNAME: root
+      DB_USERNAME: user
       DB_USERPASS: password
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       AWS_ACCESS_KEY: ${AWS_ACCESS_KEY_ID}

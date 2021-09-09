@@ -18,9 +18,9 @@ func main() {
 		}
 	}
 
-	db := infrastructure.NewDB()
+	db := infrastructure.NewDB().Connect()
 
-	db.Connection.AutoMigrate(&domain.User{})
-	// db.AutoMigrate(&model.Presentation{})
+	db.AutoMigrate(&domain.User{})
+	db.AutoMigrate(&domain.Presentation{})
 	// db.AutoMigrate(&model.Like{})
 }
