@@ -24,10 +24,10 @@ func (controller *UsersController) Get(c Context) {
 
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	user, res := controller.Interactor.Get(id)
+	user, res := controller.Interactor.GetUser(id)
 	if res.Error != nil {
-		c.JSON(res.StatusCode, NewH(res.Error.Error(), nil))
+		c.JSON(res.StatusCode, nil)
 		return
 	}
-	c.JSON(res.StatusCode, NewH("success", user))
+	c.JSON(res.StatusCode, user)
 }
