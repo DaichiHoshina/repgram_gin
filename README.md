@@ -2,6 +2,8 @@
 - クリーンアーキテクチャを勉強するために作成中。
 
 ### ディレクトリ構成
+
+```
 └── src
     ├── app
     │   ├── domain
@@ -11,6 +13,7 @@
     │   │   └── database
     │   ├── main.go
     │   └── usecase
+```
 
 ### URL
   - https://repgram.com/(停止中)
