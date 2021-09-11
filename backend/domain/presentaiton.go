@@ -19,6 +19,16 @@ type Presentation struct {
 	// Likes        []Like       `json:"likes" gorm:"foreignKey:PresentationID"`
 }
 
+type PresentationsForGet struct {
+	Presentation Presentation `json:"presentations"`
+}
+
+func (p *Presentation) BuildForIndex() PresentationsForGet {
+	presentations := PresentationsForGet{}
+
+	return presentations
+}
+
 type PresentationForGet struct {
 	ID          int    `json:"id"`
 	Title       string `json:"title"`

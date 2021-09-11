@@ -10,6 +10,16 @@ import (
 
 type PresentationRepository struct{}
 
+func (repo *PresentationRepository) FindAll(db *gorm.DB) (presentation domain.Presentations, err error) {
+	presentation = domain.Presentations{}
+	db.Model(&presentation).
+		Order("created_at DESC").
+		Preload("User").
+		Preload("Likes").
+		Find(&presentation)
+	return presentation, nil
+}
+
 func (repo *PresentationRepository) FindByID(db *gorm.DB, id int) (presentation domain.Presentation, err error) {
 	presentation = domain.Presentation{}
 	db.First(&presentation, id)
