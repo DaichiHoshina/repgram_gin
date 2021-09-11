@@ -20,11 +20,11 @@ func NewPresentationsController(db database.DB) *PresentationsController {
 	}
 }
 
-func (controller *PresentationsController) Get(c Context) {
+func (controller *PresentationsController) Show(c Context) {
 
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	user, res := controller.Interactor.GetPresentation(id)
+	user, res := controller.Interactor.PresentationByID(id)
 	if res.Error != nil {
 		c.JSON(res.StatusCode, nil)
 		return

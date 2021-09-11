@@ -31,7 +31,7 @@ func (r *Routing) setRouting() {
 
 	presentationsController := controllers.NewPresentationsController(r.DB)
 
-	r.Gin.GET("/presentetions/:id", func(c *gin.Context) { presentationsController.Get(c) })
+	r.Gin.GET("/presentations/:id", func(c *gin.Context) { presentationsController.Show(c) })
 }
 
 func (r *Routing) Run() {

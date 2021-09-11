@@ -25,7 +25,7 @@ type PresentationForGet struct {
 	Discription string `json:"discription"`
 }
 
-func (p *Presentation) GetPresentation() PresentationForGet {
+func (p *Presentation) BuildForGet() PresentationForGet {
 	presentation := PresentationForGet{}
 	presentation.ID = p.ID
 	presentation.Title = p.Title
