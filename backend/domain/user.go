@@ -2,10 +2,6 @@ package domain
 
 import "time"
 
-type Users struct {
-	User User `json:"users"`
-}
-
 type User struct {
 	ID            int            `json:"id"`
 	Name          string         `json:"name"`
@@ -19,24 +15,14 @@ type User struct {
 
 type UserForGet struct {
 	ID    int    `json:"id"`
-	Name  string `json:"Name"`
+	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
-func (u *User) GetUser() UserForGet {
+func (u *User) BuildForGet() UserForGet {
 	user := UserForGet{}
 	user.ID = u.ID
 	user.Name = u.Name
 	user.Email = u.Email
-
 	return user
-}
-
-type UsersForGet struct {
-	User User `json:"users"`
-}
-
-func (u *User) GetUsers() UsersForGet {
-	users := UsersForGet{}
-	return users
 }

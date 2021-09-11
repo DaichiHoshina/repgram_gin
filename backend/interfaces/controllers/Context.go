@@ -1,6 +1,8 @@
 package controllers
 
 type Context interface {
-    Param(key string) string
-    JSON(code int, obj interface{})
+	Param(string) string
+	Bind(interface{}) error
+	Status(int)
+	JSON(int, interface{})
 }

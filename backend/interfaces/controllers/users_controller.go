@@ -20,11 +20,11 @@ func NewUsersController(db database.DB) *UsersController {
 	}
 }
 
-func (controller *UsersController) Get(c Context) {
+func (controller *UsersController) Show(c Context) {
 
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	user, res := controller.Interactor.GetUser(id)
+	user, res := controller.Interactor.UserById(id)
 	if res.Error != nil {
 		c.JSON(res.StatusCode, nil)
 		return
