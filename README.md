@@ -1,9 +1,19 @@
-# Repgram
+### 説明
+- クリーンアーキテクチャを勉強するために作成中。
 
-爬虫類好きが、ペットの爬虫類の写真を投稿して交流するためのサービス。
+### ディレクトリ構成
+└── src
+    ├── app
+    │   ├── domain
+    │   ├── infrastructure
+    │   ├── interfaces
+    │   │   ├── controllers
+    │   │   └── database
+    │   ├── main.go
+    │   └── usecase
 
-- URL
-  - https://repgram.com/
+### URL
+  - https://repgram.com/(停止中)
 
 ### 使用技術
 
@@ -14,8 +24,8 @@
 
 - バックエンド
 
-  - Golang 1.16
-    - Echo、GORM
+  - Golang 1.17
+    - Gin、GORM
 
 - インフラ
   - Docker,docker-compose
@@ -23,25 +33,8 @@
   - terraform
   - CircleCI
 
-### 構成図
-
-![AWS構成図](https://user-images.githubusercontent.com/50498102/123069556-d9686580-d44d-11eb-86fe-c6f81bc118db.png)
-
 ### 機能一覧
 
 - ユーザー登録、編集
 - 写真投稿、編集、削除
 - いいね登録、削除
-
-### アピールポイント
-
-1. テストコードを書いている
-2. Linter(ESlint,staticcheck)を使用して、規約を守ってコードを書いている
-3. CircleCI で Dockerfile のビルドを行い、本番環境を自動で更新している
-4. フロントで Material UI を採用している
-5. terraform でインフラをコード化している
-
-### 課題点
-
-1. マテリアルデザインを採用したが、分け方が難しく、atoms と organisms の２つに偏ってしまった
-2. バックエンドのテストを細かく行うために、クリーンアーキテクチャーを採用する必要があった
