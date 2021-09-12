@@ -12,11 +12,15 @@ type PresentationInteractor struct {
 func (interactor *PresentationInteractor) Presentations() (presentation domain.Presentations, resultStatus *ResultStatus) {
 	db := interactor.DB.Connect()
 
-	presentation, err := interactor.Presentation.FindAll(db)
+	presentations, err := interactor.Presentation.FindAll(db)
 	if err != nil {
 		return domain.Presentations{}, NewResultStatus(404, err)
 	}
-	return presentation, NewResultStatus(200, nil)
+	// var presentations_array []string
+	// for _, s := range presentations {
+	// 	presentations_array = append(presentations_array, s.BuildForGet())
+	// }
+	return presentations, NewResultStatus(200, nil)
 }
 
 func (interactor *PresentationInteractor) PresentationByID(id int) (presentation domain.PresentationForGet, resultStatus *ResultStatus) {
