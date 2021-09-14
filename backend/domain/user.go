@@ -10,7 +10,7 @@ type User struct {
 	Image         string         `json:"image"`
 	Password      []byte         `json:"password"`
 	Presentations []Presentation `gorm:"foreignKey:UserID"`
-	// Likes         []Like         `gorm:"foreignKey:UserID"`
+	Likes         []Like         `gorm:"foreignKey:UserID"`
 }
 
 type UserForGet struct {

@@ -2,7 +2,6 @@ package database
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/jinzhu/gorm"
 
@@ -11,16 +10,15 @@ import (
 
 type PresentationRepository struct{}
 
-func (repo *PresentationRepository) FindAll(db *gorm.DB) (presentation domain.Presentations, err error) {
-	presentation = domain.Presentations{}
-	db.Model(&presentation).
-		Order("created_at DESC").
-		// Preload("User").
-		// Preload("Likes").
-		Find(&presentation)
+func (repo *PresentationRepository) FindAll(db *gorm.DB) (presentations domain.Presentations, err error) {
+	presentations = domain.Presentations{}
+	// db.Model(&presentation.Presentation).
 
-	fmt.Println(presentation)
-	return presentation, nil
+	db.Preload("User").
+		Preload("Likes").
+		Find(&presentations).
+		Order("created_at DESC")
+	return presentations, nil
 }
 
 func (repo *PresentationRepository) FindByID(db *gorm.DB, id int) (presentation domain.Presentation, err error) {
@@ -29,6 +27,5 @@ func (repo *PresentationRepository) FindByID(db *gorm.DB, id int) (presentation 
 	if presentation.ID <= 0 {
 		return domain.Presentation{}, errors.New("presentation is not found")
 	}
-	fmt.Println(presentation)
 	return presentation, nil
 }

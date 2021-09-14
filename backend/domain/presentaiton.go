@@ -2,13 +2,19 @@ package domain
 
 import (
 	"time"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-type Presentations struct {
-	Presentation Presentation `json:"presentations"`
-}
+// type Presentations struct {
+// 	Presentation Presentation `json:"presentations"`
+// }
+
+type Presentations []Presentation
 
 type Presentation struct {
+	gorm.Model
 	ID          int       `json:"id"`
 	Title       string    `json:"title"`
 	UserID      string    `json:"user_id"`
@@ -16,7 +22,7 @@ type Presentation struct {
 	Image       string    `json:"image"`
 	CreatedAt   time.Time `json:"created_at"`
 	User        User      `json:"user"`
-	// Likes        []Like       `json:"likes" gorm:"foreignKey:PresentationID"`
+	Likes       []Like    `json:"likes" gorm:"foreignKey:PresentationID"`
 }
 
 // type PresentationsForGet struct {
