@@ -1,6 +1,9 @@
 package infrastructure
 
 import (
+	"time"
+
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
 	"github.com/DaichiHoshina/repgram_gin/backend/interfaces/controllers"
@@ -14,11 +17,44 @@ type Routing struct {
 
 func NewRouting(db *DB) *Routing {
 	c := NewConfig()
+
 	r := &Routing{
 		DB:   db,
 		Gin:  gin.Default(),
 		Port: c.Routing.Port,
 	}
+
+	// Corsの設定
+	r.Gin.Use(cors.New(cors.Config{
+		// アクセスを許可したいアクセス元
+		AllowOrigins: []string{
+			"http://localhost:3000",
+			"http://localhost:3002",
+			"https://repgram.com",
+		},
+		// アクセスを許可したいHTTPメソッド
+		AllowMethods: []string{
+			"POST",
+			"GET",
+			"PUT",
+			"DELETE",
+			"PATCH",
+		},
+		// 許可したいHTTPリクエストヘッダ
+		AllowHeaders: []string{
+			"Access-Control-Allow-Credentials",
+			"Access-Control-Allow-Headers",
+			"Content-Type",
+			"Content-Length",
+			"Accept-Encoding",
+			"Authorization",
+		},
+		// cookieなどの情報を必要とするかどうか
+		AllowCredentials: true,
+		// preflightリクエストの結果をキャッシュする時間
+		MaxAge: 24 * time.Hour,
+	}))
+
 	r.setRouting()
 	return r
 }

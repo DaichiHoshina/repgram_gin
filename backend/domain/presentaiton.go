@@ -3,7 +3,6 @@ package domain
 import (
 	"time"
 
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
@@ -14,7 +13,6 @@ import (
 type Presentations []Presentation
 
 type Presentation struct {
-	gorm.Model
 	ID          int       `json:"id"`
 	Title       string    `json:"title"`
 	UserID      string    `json:"user_id"`
