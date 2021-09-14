@@ -60,12 +60,19 @@ func NewRouting(db *DB) *Routing {
 }
 
 func (r *Routing) setRouting() {
+	// ログイン関係
+	authController := controllers.NewAuthsController(r.DB)
+	r.Gin.GET("/auth/user", func(c *gin.Context) { authController.Connect(c) })
+
+	// ユーザー
 	usersController := controllers.NewUsersController(r.DB)
-
 	r.Gin.GET("/users/:id", func(c *gin.Context) { usersController.Show(c) })
+	// r.Gin.GET("/users/:id", func(c *gin.Context) {
+	// 	usersController.Create(c)
+	// })
 
+	// 投稿
 	presentationsController := controllers.NewPresentationsController(r.DB)
-
 	r.Gin.GET("/presentations/:id", func(c *gin.Context) { presentationsController.Show(c) })
 	r.Gin.GET("/presentations", func(c *gin.Context) { presentationsController.Index(c) })
 }
