@@ -78,7 +78,7 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	cookie.Expires = time.Now().Add(24 * time.Hour)
 	cookie.Secure = true
 	cookie.HttpOnly = true
-	c.SetCookie("user", cookie.Value, 3600, "/", "localhost", false, true)
+	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", false, true)
 
 	fmt.Println(c.Cookie("jwt"))
 

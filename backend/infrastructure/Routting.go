@@ -63,7 +63,7 @@ func (r *Routing) setRouting() {
 	// ユーザー
 	usersController := controllers.NewUsersController(r.DB)
 	r.Gin.GET("/users/:id", func(c *gin.Context) { usersController.Show(c) })
-	// r.Gin.GET("/auth/user", func(c *gin.Context) { usersController.Connect(c) })
+	r.Gin.GET("/auth/user", func(c *gin.Context) { usersController.Connect(c) })
 	r.Gin.POST("/auth/login", func(c *gin.Context) { usersController.Login(c) })
 	// r.Gin.GET("/users/:id", func(c *gin.Context) {
 	// 	usersController.Create(c)
