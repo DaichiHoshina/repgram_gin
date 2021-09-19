@@ -80,7 +80,7 @@ const DeleteOrButton: React.FC<Props> = ({ presentation }) => {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <p id="simple-modal-description">OK???</p>
+      <p id="simple-modal-description">確認です</p>
       <div className="flex justify-between mt-10">
         <Button
           variant="contained"
@@ -88,7 +88,7 @@ const DeleteOrButton: React.FC<Props> = ({ presentation }) => {
           className="bg-red"
           onClick={handleClose}
         >
-          CANCEL
+          キャンセルする
         </Button>
         <Button
           variant="contained"
@@ -99,7 +99,7 @@ const DeleteOrButton: React.FC<Props> = ({ presentation }) => {
             handleClose();
           }}
         >
-          Delete
+          削除する
         </Button>
       </div>
     </div>
@@ -113,7 +113,7 @@ const DeleteOrButton: React.FC<Props> = ({ presentation }) => {
         }}
       >
         {" "}
-        Delete
+        削除する
       </div>
 
       <Modal

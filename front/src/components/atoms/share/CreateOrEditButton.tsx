@@ -53,11 +53,11 @@ const CreateOrEditButton: React.FC<Props> = ({
     setOpen(false);
   };
 
-  const buttonString = isEditPage ? "UPDATE!" : "CREATE!";
+  const buttonString = isEditPage ? "更新する" : "作成する";
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <p id="simple-modal-description">OK???</p>
+      <p id="simple-modal-description">確認です</p>
       <div className="flex justify-between mt-10">
         <Button
           variant="contained"
@@ -65,7 +65,7 @@ const CreateOrEditButton: React.FC<Props> = ({
           className="bg-red"
           onClick={handleClose}
         >
-          CANCEL
+          キャンセルする
         </Button>
         <Button
           variant="contained"

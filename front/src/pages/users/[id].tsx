@@ -6,7 +6,7 @@ import React from "react";
 
 const UserDetail: React.FC = () => {
   return (
-    <Layout title="User Detail">
+    <Layout title="ユーザー詳細">
       <>
         <div className="flex justify-center mt-3">
           <UserDetailCard />

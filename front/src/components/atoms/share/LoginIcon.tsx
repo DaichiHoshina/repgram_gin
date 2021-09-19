@@ -16,10 +16,10 @@ const LoginIcon: React.FC = () => {
   return (
     <div className="flex">
       <div className="mr-2">
-        <Button onClick={clickSignIn}>Sign In</Button>
+        <Button onClick={clickSignIn}>ログイン</Button>
       </div>
       <div>
-        <Button onClick={clickSignUp}>Sign Up</Button>
+        <Button onClick={clickSignUp}>ユーザー登録</Button>
       </div>
     </div>
   );

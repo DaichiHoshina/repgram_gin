@@ -24,11 +24,11 @@ const SignUpForm: FC<Props> = () => {
       const result: any = await dispatch(signUpUser({ loginForm: values }));
       if (result.payload.status === 200) {
         router.push("/presentations");
-        enqueueSnackbar("Success!!", {
+        enqueueSnackbar("ユーザー登録しました", {
           variant: "success",
         });
       } else {
-        enqueueSnackbar("Failure…", {
+        enqueueSnackbar("ユーザー登録に失敗しました", {
           variant: "error",
         });
       }
@@ -44,15 +44,15 @@ const SignUpForm: FC<Props> = () => {
       <form action="" onSubmit={formik.handleSubmit}>
         <ul className="pb-10 space-y-3">
           <KeyValueColonPair
-            keyName="name"
+            keyName="氏名"
             value={<TextFieldParts name="name" formik={formik} />}
           />
           <KeyValueColonPair
-            keyName="email"
+            keyName="メールアドレス"
             value={<TextFieldParts name="email" formik={formik} />}
           />
           <KeyValueColonPair
-            keyName="password"
+            keyName="パスワード"
             value={
               <TextFieldParts
                 name="password"

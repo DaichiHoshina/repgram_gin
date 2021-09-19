@@ -29,13 +29,13 @@ const HeaderUserIcon: React.FC = () => {
   const clickLogout = async () => {
     const result: any = await dispatch(logoutUser());
     if (result?.payload?.status === 200) {
-      enqueueSnackbar("Logout!!", {
+      enqueueSnackbar("ログアウトしました", {
         variant: "success",
       });
       router.push(`/login`);
       setAnchorEl(null);
     } else {
-      enqueueSnackbar("Failure...", {
+      enqueueSnackbar("ログアウトに失敗しました", {
         variant: "error",
       });
     }
@@ -87,8 +87,8 @@ const HeaderUserIcon: React.FC = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={clickUserSetting}>Profile</MenuItem>
-        <MenuItem onClick={clickLogout}>Logout</MenuItem>
+        <MenuItem onClick={clickUserSetting}>プロフィール</MenuItem>
+        <MenuItem onClick={clickLogout}>ログアウト</MenuItem>
       </Menu>
     </>
   );

@@ -42,15 +42,15 @@ const UserDetailCard: React.FC<Props> = () => {
     <>
       <Card className="p-5 w-full">
         <ul className="flex flex-col space-y-2">
-          <KeyValuePair keyName="id" value={state.userState?.user?.id} />
-          <KeyValuePair keyName="name" value={state.userState?.user?.name} />
-          <KeyValuePair keyName="email" value={state.userState?.user?.email} />
+          <KeyValuePair keyName="ユーザーid" value={state.userState?.user?.id} />
+          <KeyValuePair keyName="氏名" value={state.userState?.user?.name} />
+          <KeyValuePair keyName="メールアドレス" value={state.userState?.user?.email} />
           <KeyValuePair
-            keyName="created_at"
+            keyName="登録日時"
             value={returnDatetimeString(state.userState?.user?.created_at)}
           />
           <KeyValuePair
-            keyName="user_image"
+            keyName="プロフィール画像"
             value={state.userState.user?.image ? "設定済み" : "未設定"}
           />
         </ul>

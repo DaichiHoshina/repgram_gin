@@ -81,7 +81,7 @@ const PresentationFormCard: React.FC<Props> = ({ isEditPage = false }) => {
             variant: "success",
           });
         setTimeout(function () {
-          enqueueSnackbar(isEditPage ? "Update!!" : "Create!!", {
+          enqueueSnackbar(isEditPage ? "更新しました" : "作成しました", {
             variant: "success",
           });
           dispatch(
@@ -93,7 +93,7 @@ const PresentationFormCard: React.FC<Props> = ({ isEditPage = false }) => {
           router.push("/presentations");
         }, setTime);
       } else {
-        enqueueSnackbar("Failure...", {
+        enqueueSnackbar("作成に失敗しました", {
           variant: "error",
         });
       }
@@ -107,7 +107,7 @@ const PresentationFormCard: React.FC<Props> = ({ isEditPage = false }) => {
           {!isEditPage && (
             <div className="mb-3">
               <KeyValuePair
-                keyName="image"
+                keyName="画像"
                 value={
                   <>
                     <DropzoneArea
@@ -140,7 +140,7 @@ const PresentationFormCard: React.FC<Props> = ({ isEditPage = false }) => {
             </div>
           )}
           <KeyValuePair
-            keyName="discription"
+            keyName="文章"
             value={
               <div className="flex">
                 <TextFieldParts name="discription" formik={formik} />

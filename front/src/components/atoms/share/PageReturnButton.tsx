@@ -8,7 +8,7 @@ const PageReturnButton: React.FC = () => {
   return (
     <>
       <Button variant="contained" color="primary" onClick={() => router.back()}>
-        BACK
+        戻る
       </Button>
     </>
   );

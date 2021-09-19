@@ -16,7 +16,7 @@ const EditLinkButton: React.FC<Props> = ({ id }) => {
     <>
       <Link href={editPath}>
         <Button variant="contained" color="primary">
-          EDIT
+          編集する
         </Button>
       </Link>
     </>

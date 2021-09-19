@@ -72,7 +72,7 @@ const CardMenu = (props: TProps): JSX.Element => {
         onClose={handleClose}
       >
         <MenuItem onClick={() => clickPresentationEdit(props.presentation)}>
-          Edit
+          編集
         </MenuItem>
         <MenuItem>
           <div onClick={() => handleClose()}>

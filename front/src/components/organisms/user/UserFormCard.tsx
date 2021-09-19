@@ -53,7 +53,7 @@ const UserFormCard: React.FC<Props> = ({
         });
         // 画像が保存されるまでタイムラグがあるため、○秒後に実行するようにしている
         setTimeout(function () {
-          enqueueSnackbar(isEditPage ? "Update!!" : "Create!!", {
+          enqueueSnackbar(isEditPage ? "更新しました" : "作成しました", {
             variant: "success",
           });
           dispatch(
@@ -65,7 +65,7 @@ const UserFormCard: React.FC<Props> = ({
           router.push(isUserSettingPage ? `/users/${id}` : "/presentations");
         }, 2000);
       } else {
-        enqueueSnackbar("Failure...", {
+        enqueueSnackbar("失敗しました", {
           variant: "error",
         });
       }
@@ -78,7 +78,7 @@ const UserFormCard: React.FC<Props> = ({
         <ul className="flex flex-col space-y-2">
           <div className="mb-3">
             <KeyValuePair
-              keyName="image"
+              keyName="画像"
               value={
                 <>
                   <DropzoneArea
@@ -110,7 +110,7 @@ const UserFormCard: React.FC<Props> = ({
             />
           </div>
           <KeyValuePair
-            keyName="name"
+            keyName="氏名"
             value={
               <div className="flex">
                 <TextFieldParts name="name" formik={formik} />

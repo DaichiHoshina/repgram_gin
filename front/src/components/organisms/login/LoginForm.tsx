@@ -25,11 +25,11 @@ const LoginForm: FC<Props> = () => {
       const result: any = await dispatch(loginUser({ loginForm: values }));
       if (result.payload?.status === 200) {
         router.push("/presentations");
-        enqueueSnackbar(`Welcome!!`, {
+        enqueueSnackbar(`ログインしました`, {
           variant: "success",
         });
       } else {
-        enqueueSnackbar("Failure...", {
+        enqueueSnackbar("ログインに失敗しました", {
           variant: "error",
         });
       }
@@ -45,11 +45,11 @@ const LoginForm: FC<Props> = () => {
     const result: any = await dispatch(loginUser({ loginForm: testValues }));
     if (result.payload?.status === 200) {
       router.push("/presentations");
-      enqueueSnackbar("Welcome!!", {
+      enqueueSnackbar("ログインしました", {
         variant: "success",
       });
     } else {
-      enqueueSnackbar("Failure...", {
+      enqueueSnackbar("ログインに失敗しました", {
         variant: "error",
       });
     }
@@ -60,15 +60,15 @@ const LoginForm: FC<Props> = () => {
       className="flex-item flex flex-col px-8 py-12 w-1/2 max-w-5xl"
       style={{ color: "#ffffff", backgroundColor: "#242323" }}
     >
-      <h1 className="pb-8 text-center text-xl">Sign In</h1>
+      <h1 className="pb-8 text-center text-xl">ログイン</h1>
       <form action="" onSubmit={formik.handleSubmit}>
         <ul className="pb-10 space-y-3">
           <KeyValueColonPair
-            keyName="email"
+            keyName="メールアドレス"
             value={<TextFieldParts name="email" formik={formik} />}
           />
           <KeyValueColonPair
-            keyName="password"
+            keyName="パスワード"
             value={
               <TextFieldParts
                 name="password"
@@ -87,7 +87,7 @@ const LoginForm: FC<Props> = () => {
           fullWidth
           className="border-none ring-transparent"
         >
-          Login
+          ログイン
         </Button>
         <div className="mt-5">
           <Button
@@ -97,7 +97,7 @@ const LoginForm: FC<Props> = () => {
             className="border-none ring-transparent"
             onClick={testUserLogin}
           >
-            Login Test User!!
+            テストユーザーとしてログイン
           </Button>
         </div>
         <div>※ポートフォリオ閲覧用です</div>
