@@ -16,10 +16,6 @@ func (interactor *PresentationInteractor) Presentations() (presentation domain.P
 	if err != nil {
 		return domain.Presentations{}, NewResultStatus(404, err)
 	}
-	// var presentations_array []string
-	// for _, s := range presentations {
-	// 	presentations_array = append(presentations_array, s.BuildForGet())
-	// }
 	return presentations, NewResultStatus(200, nil)
 }
 
