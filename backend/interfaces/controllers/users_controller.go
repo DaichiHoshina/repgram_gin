@@ -40,7 +40,15 @@ func (controller *UsersController) Login(c Context) {
 		return
 	}
 	c.JSON(res.StatusCode, token)
+}
 
+func (controller *UsersController) Logout(c Context) {
+	res := controller.Interactor.UserLogout(c)
+	if res.Error != nil {
+		c.JSON(res.StatusCode, nil)
+		return
+	}
+	c.JSON(res.StatusCode, nil)
 }
 
 type Claims struct {
@@ -70,8 +78,8 @@ func (controller *UsersController) Connect(c Context) {
 	id_int, _ := strconv.Atoi(id)
 
 	user, res := controller.Interactor.UserById(id_int)
-	if res.Error != nil {
-		c.JSON(res.StatusCode, nil)
+	if err != nil {
+		c.JSON(400, "user is not login")
 		return
 	}
 	c.JSON(res.StatusCode, user)

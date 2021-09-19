@@ -19,7 +19,7 @@ type UserInteractor struct {
 
 func (interactor *UserInteractor) UserById(id int) (user domain.UserForGet, resultStatus *ResultStatus) {
 	db := interactor.DB.Connect()
-	// User の取得
+
 	foundUser, err := interactor.User.FindByID(db, id)
 	if err != nil {
 		return domain.UserForGet{}, NewResultStatus(404, err)
@@ -39,7 +39,6 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 
 	var user domain.User
 
-	// User の取得
 	user, err := interactor.User.FindByEmail(db, post.Email)
 	if err != nil {
 		c.JSON(400, "メールアドレスが存在しません")
@@ -71,16 +70,19 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 
 	// Cookieをセット
 	cookie := new(http.Cookie)
-	cookie.Name = "jwt"
 	cookie.Value = token
-	cookie.SameSite = http.SameSiteNoneMode
-	cookie.Path = "/"
-	cookie.Expires = time.Now().Add(24 * time.Hour)
-	cookie.Secure = true
-	cookie.HttpOnly = true
 	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", false, true)
 
 	fmt.Println(c.Cookie("jwt"))
 
 	return token, NewResultStatus(200, nil)
+}
+
+func (interactor *UserInteractor) UserLogout(c Context) (resultStatus *ResultStatus) {
+	// Cookieをセット
+	cookie := new(http.Cookie)
+	cookie.Value = ""
+	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", false, true)
+
+	return NewResultStatus(200, nil)
 }
