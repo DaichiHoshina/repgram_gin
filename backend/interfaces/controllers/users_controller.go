@@ -33,6 +33,15 @@ func (controller *UsersController) Show(c Context) {
 	c.JSON(res.StatusCode, user)
 }
 
+func (controller *UsersController) Create(c Context) {
+	user, res := controller.Interactor.UserCreate(c)
+	if res.Error != nil {
+		c.JSON(res.StatusCode, nil)
+		return
+	}
+	c.JSON(res.StatusCode, user)
+}
+
 func (controller *UsersController) Login(c Context) {
 	token, res := controller.Interactor.UserLogin(c)
 	if res.Error != nil {

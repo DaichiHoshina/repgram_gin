@@ -9,4 +9,5 @@ import (
 type UserRepository interface {
 	FindByID(db *gorm.DB, id int) (user domain.User, err error)
 	FindByEmail(db *gorm.DB, email string) (user domain.User, err error)
+	Create(db *gorm.DB, postUser domain.User) (user domain.User, err error)
 }

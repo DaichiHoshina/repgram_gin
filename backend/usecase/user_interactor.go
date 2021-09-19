@@ -22,6 +22,7 @@ func (interactor *UserInteractor) UserById(id int) (user domain.UserForGet, resu
 
 	foundUser, err := interactor.User.FindByID(db, id)
 	if err != nil {
+		log.Print("ユーザーが見つかりませんでした")
 		return domain.UserForGet{}, NewResultStatus(404, err)
 	}
 	user = foundUser.BuildForGet()
@@ -43,11 +44,6 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	if err != nil {
 		c.JSON(400, "メールアドレスが存在しません")
 		return
-	}
-
-	if user.ID == 0 {
-		log.Print("データが存在しません")
-		return "", NewResultStatus(404, nil)
 	}
 
 	// パスワードのチェック
@@ -85,4 +81,54 @@ func (interactor *UserInteractor) UserLogout(c Context) (resultStatus *ResultSta
 	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", false, true)
 
 	return NewResultStatus(200, nil)
+}
+
+func (interactor *UserInteractor) UserCreate(c Context) (user domain.User, resultStatus *ResultStatus) {
+	post := new(domain.User)
+	if err := c.Bind(post); err != nil {
+		c.JSON(400, "post error")
+		return
+	}
+
+	// パスワードをエンコード
+	password, _ := bcrypt.GenerateFromPassword([]byte(post.Password), 14)
+
+	postUser := domain.User{
+		Name:     post.Name,
+		Email:    post.Email,
+		Password: password,
+	}
+
+	db := interactor.DB.Connect()
+
+	user, err := interactor.User.Create(db, postUser)
+	if err != nil {
+		c.JSON(400, "ユーザー作成に失敗しました")
+		return
+	}
+
+	// JWTトークンを取得
+	claims := jwt.StandardClaims{
+		Issuer:    strconv.Itoa(int(user.ID)),
+		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+	}
+	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token, err := jwtToken.SignedString([]byte("secret"))
+	if err != nil {
+		log.Print("トークンの取得に失敗しました")
+		return domain.User{}, NewResultStatus(400, nil)
+	}
+
+	// Cookieをセット
+	cookie := new(http.Cookie)
+	cookie.Value = token
+	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", false, true)
+	if err != nil {
+		log.Print("クッキーのセットに失敗しました")
+		return domain.User{}, NewResultStatus(400, nil)
+	}
+
+	fmt.Println(c.Cookie("jwt"))
+
+	return user, NewResultStatus(200, nil)
 }

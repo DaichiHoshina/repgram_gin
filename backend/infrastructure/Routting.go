@@ -66,6 +66,7 @@ func (r *Routing) setRouting() {
 	r.Gin.GET("/auth/user", func(c *gin.Context) { usersController.Connect(c) })
 	r.Gin.POST("/auth/login", func(c *gin.Context) { usersController.Login(c) })
 	r.Gin.GET("/auth/logout", func(c *gin.Context) { usersController.Logout(c) })
+	r.Gin.POST("/auth", func(c *gin.Context) { usersController.Create(c) })
 
 	// r.Gin.GET("/users/:id", func(c *gin.Context) {
 	// 	usersController.Create(c)
