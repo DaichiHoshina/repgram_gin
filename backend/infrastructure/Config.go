@@ -1,6 +1,18 @@
 package infrastructure
 
+import (
+	"os"
+)
+
 type Config struct {
+	Aws struct {
+		S3 struct {
+			Region          string
+			Bucket          string
+			AccessKeyID     string
+			SecretAccessKey string
+		}
+	}
 	DB struct {
 		Production struct {
 			Host     string
@@ -35,6 +47,11 @@ func NewConfig() *Config {
 	c.DB.Test.DBName = "mydb"
 
 	c.Routing.Port = ":3001"
+
+	c.Aws.S3.Region = "ap-northeast-1"
+	c.Aws.S3.Bucket = os.Getenv("BUCKET_NAME")
+	c.Aws.S3.AccessKeyID = os.Getenv("AWS_ACCESS_KEY")
+	c.Aws.S3.SecretAccessKey = os.Getenv("AWS_SECRET_ACCESS_KEY")
 
 	return c
 }

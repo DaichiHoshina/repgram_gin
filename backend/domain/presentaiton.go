@@ -2,13 +2,7 @@ package domain
 
 import (
 	"time"
-
-	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
-
-// type Presentations struct {
-// 	Presentation Presentation `json:"presentations"`
-// }
 
 type Presentations []Presentation
 

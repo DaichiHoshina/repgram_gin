@@ -29,3 +29,10 @@ func (repo *PresentationRepository) FindByID(db *gorm.DB, id int) (presentation 
 	}
 	return presentation, nil
 }
+
+func (repo *PresentationRepository) Create(db *gorm.DB, postPresentation domain.Presentation) (presentation domain.Presentation, err error) {
+	if result := db.Create(&postPresentation); result.Error != nil {
+		return domain.Presentation{}, errors.New("presentation can not create")
+	}
+	return presentation, nil
+}

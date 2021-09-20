@@ -10,18 +10,20 @@ import (
 )
 
 type Routing struct {
-	DB   *DB
-	Gin  *gin.Engine
-	Port string
+	DB    *DB
+	Gin   *gin.Engine
+	Port  string
+	AwsS3 *AwsS3
 }
 
-func NewRouting(db *DB) *Routing {
+func NewRouting(db *DB, awsS3 *AwsS3) *Routing {
 	c := NewConfig()
 
 	r := &Routing{
-		DB:   db,
-		Gin:  gin.Default(),
-		Port: c.Routing.Port,
+		DB:    db,
+		Gin:   gin.Default(),
+		Port:  c.Routing.Port,
+		AwsS3: awsS3,
 	}
 
 	// Corsの設定
@@ -68,14 +70,20 @@ func (r *Routing) setRouting() {
 	r.Gin.GET("/auth/logout", func(c *gin.Context) { usersController.Logout(c) })
 	r.Gin.POST("/auth", func(c *gin.Context) { usersController.Create(c) })
 
-	// r.Gin.GET("/users/:id", func(c *gin.Context) {
-	// 	usersController.Create(c)
-	// })
-
 	// 投稿
 	presentationsController := controllers.NewPresentationsController(r.DB)
 	r.Gin.GET("/presentations/:id", func(c *gin.Context) { presentationsController.Show(c) })
 	r.Gin.GET("/presentations", func(c *gin.Context) { presentationsController.Index(c) })
+	r.Gin.POST("/presentations", func(c *gin.Context) { presentationsController.Create(c, r.AwsS3) })
+	// r.Gin.PUT("/presentations/:id", func(c *gin.Context) { presentationsController.Update(c) })
+	// r.Gin.DELETE("/presentations/:id", func(c *gin.Context) { presentationsController.Delete(c) })
+
+	// TODO:いいね
+	// likesController := controllers.NewLikesController(r.DB)
+	// r.Gin.GET("/likes", func(c *gin.Context) { likesController.Create(c) })
+	// r.Gin.POST("/likes/delete", func(c *gin.Context) { likesController.Delete(c) })
+
+	// TODO:ヘルスチェック
 }
 
 func (r *Routing) Run() {

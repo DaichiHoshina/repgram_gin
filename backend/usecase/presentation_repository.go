@@ -9,4 +9,5 @@ import (
 type PresentationRepository interface {
 	FindByID(db *gorm.DB, id int) (presentation domain.Presentation, err error)
 	FindAll(db *gorm.DB) (presentation domain.Presentations, err error)
+	Create(db *gorm.DB, postPresentation domain.Presentation) (presentation domain.Presentation, err error)
 }

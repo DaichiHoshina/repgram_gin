@@ -1,5 +1,7 @@
 package controllers
 
+import "mime/multipart"
+
 type Context interface {
 	Param(string) string
 	Bind(interface{}) error
@@ -7,4 +9,5 @@ type Context interface {
 	JSON(int, interface{})
 	Cookie(name string) (string, error)
 	SetCookie(name, value string, maxAge int, path, domain string, secure, httpOnly bool)
+	FormFile(name string) (*multipart.FileHeader, error)
 }
