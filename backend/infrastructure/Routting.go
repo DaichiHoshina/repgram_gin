@@ -10,20 +10,18 @@ import (
 )
 
 type Routing struct {
-	DB    *DB
-	Gin   *gin.Engine
-	Port  string
-	AwsS3 *AwsS3
+	DB   *DB
+	Gin  *gin.Engine
+	Port string
 }
 
-func NewRouting(db *DB, awsS3 *AwsS3) *Routing {
+func NewRouting(db *DB) *Routing {
 	c := NewConfig()
 
 	r := &Routing{
-		DB:    db,
-		Gin:   gin.Default(),
-		Port:  c.Routing.Port,
-		AwsS3: awsS3,
+		DB:   db,
+		Gin:  gin.Default(),
+		Port: c.Routing.Port,
 	}
 
 	// Corsの設定
@@ -74,7 +72,7 @@ func (r *Routing) setRouting() {
 	presentationsController := controllers.NewPresentationsController(r.DB)
 	r.Gin.GET("/presentations/:id", func(c *gin.Context) { presentationsController.Show(c) })
 	r.Gin.GET("/presentations", func(c *gin.Context) { presentationsController.Index(c) })
-	r.Gin.POST("/presentations", func(c *gin.Context) { presentationsController.Create(c, r.AwsS3) })
+	r.Gin.POST("/presentations", func(c *gin.Context) { presentationsController.Create(c) })
 	// r.Gin.PUT("/presentations/:id", func(c *gin.Context) { presentationsController.Update(c) })
 	// r.Gin.DELETE("/presentations/:id", func(c *gin.Context) { presentationsController.Delete(c) })
 

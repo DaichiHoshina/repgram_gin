@@ -41,8 +41,8 @@ func (controller *PresentationsController) Show(c Context) {
 	c.JSON(res.StatusCode, presentation)
 }
 
-func (controller *PresentationsController) Create(c Context, awsS3 interface{}) {
-	presentation, res := controller.Interactor.PresentationCreate(c, awsS3)
+func (controller *PresentationsController) Create(c Context) {
+	presentation, res := controller.Interactor.PresentationCreate(c)
 	if res.Error != nil {
 		c.JSON(res.StatusCode, nil)
 		return

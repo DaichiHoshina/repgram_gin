@@ -7,9 +7,7 @@ import (
 func main() {
 	db := infrastructure.NewDB()
 
-	awsS3 := infrastructure.NewAwsS3()
-
-	r := infrastructure.NewRouting(db, awsS3)
+	r := infrastructure.NewRouting(db)
 
 	r.Run()
 }
