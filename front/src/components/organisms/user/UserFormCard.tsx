@@ -63,7 +63,7 @@ const UserFormCard: React.FC<Props> = ({
             })
           );
           router.push(isUserSettingPage ? `/users/${id}` : "/presentations");
-        }, 2000);
+        }, 3000);
       } else {
         enqueueSnackbar("失敗しました", {
           variant: "error",

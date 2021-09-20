@@ -14,10 +14,11 @@ func (repo *PresentationRepository) FindAll(db *gorm.DB) (presentations domain.P
 	presentations = domain.Presentations{}
 	// db.Model(&presentation.Presentation).
 
-	db.Preload("User").
+	db.Order("created_at DESC").
+		Preload("User").
 		Preload("Likes").
-		Find(&presentations).
-		Order("created_at DESC")
+		Find(&presentations)
+
 	return presentations, nil
 }
 
