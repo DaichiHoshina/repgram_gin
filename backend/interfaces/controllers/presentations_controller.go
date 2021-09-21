@@ -49,3 +49,12 @@ func (controller *PresentationsController) Create(c Context) {
 	}
 	c.JSON(res.StatusCode, presentation)
 }
+
+func (controller *PresentationsController) Update(c Context) {
+	presentation, res := controller.Interactor.PresentationUpdate(c)
+	if res.Error != nil {
+		c.JSON(res.StatusCode, nil)
+		return
+	}
+	c.JSON(res.StatusCode, presentation)
+}

@@ -82,8 +82,35 @@ func (interactor *PresentationInteractor) PresentationCreate(c Context) (present
 
 	presentation, err = interactor.Presentation.Create(db, postPresentation)
 	if err != nil {
-		c.JSON(400, "ユーザー作成に失敗しました")
+		c.JSON(400, "投稿作成に失敗しました")
 		return
 	}
 	return presentation, NewResultStatus(200, nil)
+}
+
+func (interactor *PresentationInteractor) PresentationUpdate(c Context) (presentation domain.Presentation, resultStatus *ResultStatus) {
+	db := interactor.DB.Connect()
+
+	if id := c.Param("id"); id != "" {
+
+		db.First(&presentation, id)
+
+		post := domain.Presentation{}
+
+		if err := c.Bind(post); err != nil {
+			c.JSON(400, "投稿更新に失敗しました")
+		}
+
+		postPresentation := domain.Presentation{
+			Discription: post.Discription,
+		}
+
+		presentation, err := interactor.Presentation.Update(db, postPresentation)
+		if err != nil {
+			c.JSON(400, "投稿更新に失敗しました")
+		}
+		return presentation, NewResultStatus(200, nil)
+	}
+	c.JSON(400, "IDが取得できませんでした")
+	return
 }

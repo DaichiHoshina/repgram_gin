@@ -37,3 +37,10 @@ func (repo *PresentationRepository) Create(db *gorm.DB, postPresentation domain.
 	}
 	return presentation, nil
 }
+
+func (repo *PresentationRepository) Update(db *gorm.DB, postPresentation domain.Presentation) (presentation domain.Presentation, err error) {
+	if result := db.Update(&postPresentation); result.Error != nil {
+		return domain.Presentation{}, errors.New("presentation can not create")
+	}
+	return presentation, nil
+}

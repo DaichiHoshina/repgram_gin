@@ -73,7 +73,7 @@ func (r *Routing) setRouting() {
 	r.Gin.GET("/presentations/:id", func(c *gin.Context) { presentationsController.Show(c) })
 	r.Gin.GET("/presentations", func(c *gin.Context) { presentationsController.Index(c) })
 	r.Gin.POST("/presentations", func(c *gin.Context) { presentationsController.Create(c) })
-	// r.Gin.PUT("/presentations/:id", func(c *gin.Context) { presentationsController.Update(c) })
+	r.Gin.PUT("/presentations/:id", func(c *gin.Context) { presentationsController.Update(c) })
 	// r.Gin.DELETE("/presentations/:id", func(c *gin.Context) { presentationsController.Delete(c) })
 
 	// TODO:いいね
