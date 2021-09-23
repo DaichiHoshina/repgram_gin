@@ -59,7 +59,7 @@ export const userSlice = createSlice({
 
     // ユーザー取得
     builder.addCase(fetchUser.fulfilled, (state, action) => {
-      state.user = action.payload?.[0];
+      state.user = action.payload;
       state.error = false;
     });
 

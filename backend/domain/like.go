@@ -1,7 +1,7 @@
 package domain
 
 type Likes struct {
-	Like Like `json:"likes"`
+	Like []Like
 }
 
 type Like struct {

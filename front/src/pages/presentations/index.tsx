@@ -91,6 +91,7 @@ const PresentationList: React.FC = () => {
 
   const classes = useStyles();
 
+  // 投稿内容が変更されたとき
   useEffect(() => {
     dispatch(
       fetchPresentations({
@@ -98,6 +99,10 @@ const PresentationList: React.FC = () => {
         per: 1,
       })
     );
+  }, []);
+
+   // ログインユーザーが変更されたとき
+   useEffect(() => {
     dispatch(loginConfirm());
   }, []);
 

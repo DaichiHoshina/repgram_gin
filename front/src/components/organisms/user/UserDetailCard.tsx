@@ -55,11 +55,11 @@ const UserDetailCard: React.FC<Props> = () => {
           />
         </ul>
         <SeparateHr />
-        <div className="flex justify-end">
+        {/* <div className="flex justify-end">
           <div className="ml-5">
             <EditLinkButton />
           </div>
-        </div>
+        </div> */}
       </Card>
     </>
   );

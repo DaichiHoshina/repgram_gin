@@ -76,10 +76,10 @@ func (r *Routing) setRouting() {
 	r.Gin.PUT("/presentations/:id", func(c *gin.Context) { presentationsController.Update(c) })
 	r.Gin.DELETE("/presentations/:id", func(c *gin.Context) { presentationsController.Delete(c) })
 
-	// TODO:いいね
-	// likesController := controllers.NewLikesController(r.DB)
-	// r.Gin.GET("/likes", func(c *gin.Context) { likesController.Create(c) })
-	// r.Gin.POST("/likes/delete", func(c *gin.Context) { likesController.Delete(c) })
+	// いいね
+	likesController := controllers.NewLikesController(r.DB)
+	r.Gin.POST("/likes", func(c *gin.Context) { likesController.Create(c) })
+	r.Gin.POST("/likes/delete", func(c *gin.Context) { likesController.Delete(c) })
 
 	// TODO:ヘルスチェック
 }

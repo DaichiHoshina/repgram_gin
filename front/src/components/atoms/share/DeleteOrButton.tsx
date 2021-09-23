@@ -66,7 +66,7 @@ const DeleteOrButton: React.FC<Props> = ({ presentation }) => {
         id: presentation.id!,
       })
     );
-    if (response.payload?.[0]) {
+    if (response.payload) {
       enqueueSnackbar("削除しました。", { variant: "success" });
       await dispatch(
         fetchPresentations({
