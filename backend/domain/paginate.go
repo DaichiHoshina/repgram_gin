@@ -1,6 +1,6 @@
 package domain
 
 type Paginate struct {
-	Page string `json:"page"`
-	Per  string `json:"per"`
+	Page int `json:"page"`
+	Per  int `json:"per"`
 }

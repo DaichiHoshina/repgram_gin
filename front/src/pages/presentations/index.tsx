@@ -171,7 +171,7 @@ const PresentationList: React.FC = () => {
         <Pagination
           count={10} //総ページ数
           color="primary" //ページネーションの色
-          onChange={(e, page) => setPage(page)} //変更されたときに走る関数。第2引数にページ番号が入る
+          onChange={(_, page) => setPage(page)} //変更されたときに走る関数。第2引数にページ番号が入る
           page={page} //現在のページ番号
         />
       </div>

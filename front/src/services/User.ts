@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "./Common";
-import Qs from "qs";
 import { TUser } from "../modules/User";
 
 export const fetchUsers = createAsyncThunk(
@@ -12,12 +11,8 @@ export const fetchUsers = createAsyncThunk(
 
       const response = await axios.get(url, {
         params: {
-          pagination: 1,
           page: page,
           per: per,
-        },
-        paramsSerializer: function (params) {
-          return Qs.stringify(params, { arrayFormat: "brackets" });
         },
       });
       return response.data;

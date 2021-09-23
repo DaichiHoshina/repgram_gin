@@ -3,7 +3,6 @@ package database
 import (
 	"errors"
 	"log"
-	"strconv"
 
 	"github.com/jinzhu/gorm"
 
@@ -15,29 +14,21 @@ type PresentationRepository struct{}
 func (repo *PresentationRepository) FindAll(db *gorm.DB, paginate domain.Paginate) (presentations domain.Presentations, err error) {
 	presentations = domain.Presentations{}
 
-	page, _ := strconv.Atoi(paginate.Page)
-	if page == 0 {
-		page = 1
-	}
+	page := paginate.Page
 
-	pageSize, _ := strconv.Atoi(paginate.Per)
-	switch {
-	case pageSize > 100:
-		pageSize = 100
-	case pageSize <= 0:
-		pageSize = 10
-	}
+	pageSize := paginate.Per
 
+	// 先頭いくつスキップするかを取得
 	offset := (page - 1) * pageSize
 
 	log.Println(page, pageSize)
 
 	db.Order("created_at DESC").
+		Limit(pageSize).
+		Offset(offset).
 		Preload("User").
 		Preload("Likes").
-		Find(&presentations).
-		Offset(offset).
-		Limit(pageSize)
+		Find(&presentations)
 
 	return presentations, nil
 }

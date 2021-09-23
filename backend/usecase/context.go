@@ -11,4 +11,5 @@ type Context interface {
 	SetCookie(name, value string, maxAge int, path, domain string, secure, httpOnly bool)
 	FormFile(name string) (*multipart.FileHeader, error)
 	GetPostForm(key string) (string, bool)
+	Query(key string) string
 }

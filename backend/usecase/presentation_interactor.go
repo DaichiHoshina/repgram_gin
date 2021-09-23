@@ -3,6 +3,7 @@ package usecase
 import (
 	"fmt"
 	"log"
+	"strconv"
 
 	"github.com/DaichiHoshina/repgram_gin/backend/domain"
 )
@@ -15,15 +16,20 @@ type PresentationInteractor struct {
 func (interactor *PresentationInteractor) Presentations(c Context) (presentation domain.Presentations, resultStatus *ResultStatus) {
 	db := interactor.DB.Connect()
 
-	page, _ := c.GetPostForm("page")
-	per, _ := c.GetPostForm("per")
+	page := c.Query("page")
+	per := c.Query("per")
 
-	post := domain.Paginate{
-		Page: page,
-		Per:  per,
+	page_int, _ := strconv.Atoi(page)
+	per_int, _ := strconv.Atoi(per)
+
+	paginate := domain.Paginate{
+		Page: page_int,
+		Per:  per_int,
 	}
 
-	presentations, err := interactor.Presentation.FindAll(db, post)
+	log.Println(page_int, per_int)
+
+	presentations, err := interactor.Presentation.FindAll(db, paginate)
 	if err != nil {
 		log.Println("投稿が取得出来ませんでした")
 		return domain.Presentations{}, NewResultStatus(400, err)

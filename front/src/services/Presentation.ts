@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "./Common";
-import Qs from "qs";
 import { TPresentation } from "../modules/Presentation";
 
 export const fetchPresentations = createAsyncThunk(
@@ -12,12 +11,8 @@ export const fetchPresentations = createAsyncThunk(
 
       const response = await axios.get(url, {
         params: {
-          pagination: 1,
           page: page,
           per: per,
-        },
-        paramsSerializer: function (params) {
-          return Qs.stringify(params, { arrayFormat: "brackets" });
         },
       });
       return response.data;
