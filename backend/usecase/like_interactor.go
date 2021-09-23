@@ -9,22 +9,22 @@ type LikeInteractor struct {
 	Like LikeRepository
 }
 
-func (interactor *LikeInteractor) LikeCreate(postLike domain.Like) (presentation domain.Like, resultStatus *ResultStatus) {
+func (interactor *LikeInteractor) LikeCreate(postLike domain.Like) (like domain.Like, resultStatus *ResultStatus) {
 	db := interactor.DB.Connect()
 
-	presentation, err := interactor.Like.Create(db, postLike)
+	like, err := interactor.Like.Create(db, postLike)
 	if err != nil {
 		return domain.Like{}, NewResultStatus(400, err)
 	}
-	return presentation, NewResultStatus(200, nil)
+	return like, NewResultStatus(200, nil)
 }
 
-func (interactor *LikeInteractor) LikeDelete(postLike domain.Like) (presentation domain.Like, resultStatus *ResultStatus) {
+func (interactor *LikeInteractor) LikeDelete(postLike domain.Like) (like domain.Like, resultStatus *ResultStatus) {
 	db := interactor.DB.Connect()
 
-	presentation, err := interactor.Like.Delete(db, postLike)
+	like, err := interactor.Like.Delete(db, postLike)
 	if err != nil {
 		return domain.Like{}, NewResultStatus(400, err)
 	}
-	return presentation, NewResultStatus(200, nil)
+	return like, NewResultStatus(200, nil)
 }

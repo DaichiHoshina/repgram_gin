@@ -18,7 +18,15 @@ func (repo *LikeRepository) Create(db *gorm.DB, postLike domain.Like) (like doma
 }
 
 func (repo *LikeRepository) Delete(db *gorm.DB, postLike domain.Like) (like domain.Like, err error) {
-	if result := db.Delete(&postLike); result.Error != nil {
+
+	like = domain.Like{
+		UserID:         postLike.UserID,
+		PresentationID: postLike.PresentationID,
+	}
+
+	db.First(&like, like)
+
+	if result := db.Delete(&like); result.Error != nil {
 		return domain.Like{}, errors.New("いいねが削除出来ませんでした")
 	}
 	return like, nil
