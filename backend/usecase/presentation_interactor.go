@@ -115,3 +115,13 @@ func (interactor *PresentationInteractor) PresentationUpdate(c Context) (present
 	c.JSON(400, "IDが取得できませんでした")
 	return
 }
+
+func (interactor *PresentationInteractor) PresentationDelete(id int) (presentation domain.Presentations, resultStatus *ResultStatus) {
+	db := interactor.DB.Connect()
+
+	presentation, err := interactor.Presentation.Delete(db, id)
+	if err != nil {
+		return domain.Presentations{}, NewResultStatus(404, err)
+	}
+	return presentation, NewResultStatus(200, nil)
+}

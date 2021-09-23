@@ -58,3 +58,14 @@ func (controller *PresentationsController) Update(c Context) {
 	}
 	c.JSON(res.StatusCode, presentation)
 }
+
+func (controller *PresentationsController) Delete(c Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	presentation, res := controller.Interactor.PresentationDelete(id)
+	if res.Error != nil {
+		c.JSON(res.StatusCode, nil)
+		return
+	}
+	c.JSON(res.StatusCode, presentation)
+}
