@@ -2,6 +2,7 @@ package database
 
 import (
 	"errors"
+	"log"
 
 	"github.com/jinzhu/gorm"
 
@@ -24,9 +25,13 @@ func (repo *PresentationRepository) FindAll(db *gorm.DB) (presentations domain.P
 
 func (repo *PresentationRepository) FindByID(db *gorm.DB, id int) (presentation domain.Presentation, err error) {
 	presentation = domain.Presentation{}
-	db.First(&presentation, id)
-	if presentation.ID <= 0 {
-		return domain.Presentation{}, errors.New("投稿が見つかりませんでした")
+	if id <= 0 {
+		log.Println("IDがありません")
+		return domain.Presentation{}, errors.New("IDがありません")
+	}
+	if result := db.First(&presentation, id); result.Error != nil {
+		log.Println(presentation)
+		return domain.Presentation{}, errors.New("投稿が取得出来ませんでした")
 	}
 	return presentation, nil
 }
@@ -47,8 +52,11 @@ func (repo *PresentationRepository) Update(db *gorm.DB, postPresentation domain.
 
 func (repo *PresentationRepository) Delete(db *gorm.DB, id int) (presentation domain.Presentation, err error) {
 	presentation = domain.Presentation{}
-	db.First(&presentation, id)
-	if result := db.Delete(&presentation); result.Error != nil {
+	if id <= 0 {
+		log.Println("IDがありません")
+		return domain.Presentation{}, errors.New("IDがありません")
+	}
+	if result := db.Delete(&presentation, id); result.Error != nil {
 		return domain.Presentation{}, errors.New("投稿が削除出来ませんでした")
 	}
 	return presentation, nil

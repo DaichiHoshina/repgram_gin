@@ -60,6 +60,7 @@ func (controller *PresentationsController) Update(c Context) {
 }
 
 func (controller *PresentationsController) Delete(c Context) {
+
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	presentation, res := controller.Interactor.PresentationDelete(id)

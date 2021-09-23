@@ -17,7 +17,8 @@ func (interactor *PresentationInteractor) Presentations() (presentation domain.P
 
 	presentations, err := interactor.Presentation.FindAll(db)
 	if err != nil {
-		return domain.Presentations{}, NewResultStatus(404, err)
+		log.Println("投稿が取得出来ませんでした")
+		return domain.Presentations{}, NewResultStatus(400, err)
 	}
 	return presentations, NewResultStatus(200, nil)
 }
@@ -27,7 +28,8 @@ func (interactor *PresentationInteractor) PresentationByID(id int) (presentation
 
 	foundPresentation, err := interactor.Presentation.FindByID(db, id)
 	if err != nil {
-		return domain.PresentationForGet{}, NewResultStatus(404, err)
+		log.Println("投稿が見つかりませんでした")
+		return domain.PresentationForGet{}, NewResultStatus(400, err)
 	}
 	presentation = foundPresentation.BuildForGet()
 	return presentation, NewResultStatus(200, nil)
@@ -121,7 +123,7 @@ func (interactor *PresentationInteractor) PresentationDelete(id int) (presentati
 
 	presentation, err := interactor.Presentation.Delete(db, id)
 	if err != nil {
-		return domain.Presentation{}, NewResultStatus(404, err)
+		return domain.Presentation{}, NewResultStatus(400, err)
 	}
 	return presentation, NewResultStatus(200, nil)
 }

@@ -23,7 +23,7 @@ func (interactor *UserInteractor) UserById(id int) (user domain.UserForGet, resu
 	foundUser, err := interactor.User.FindByID(db, id)
 	if err != nil {
 		log.Print("ユーザーが見つかりませんでした")
-		return domain.UserForGet{}, NewResultStatus(404, err)
+		return domain.UserForGet{}, NewResultStatus(400, err)
 	}
 	user = foundUser.BuildForGet()
 	return user, NewResultStatus(200, nil)
@@ -49,7 +49,7 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	// パスワードのチェック
 	if err := bcrypt.CompareHashAndPassword(user.Password, []byte(post.Password)); err != nil {
 		log.Print("パスワードが一致しません")
-		return "", NewResultStatus(404, nil)
+		return "", NewResultStatus(400, nil)
 	}
 
 	// JWTトークンを取得
@@ -61,7 +61,7 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	token, err = jwtToken.SignedString([]byte("secret"))
 	if err != nil {
 		log.Print("トークンの取得に失敗しました")
-		return "", NewResultStatus(404, nil)
+		return "", NewResultStatus(400, nil)
 	}
 
 	// Cookieをセット
