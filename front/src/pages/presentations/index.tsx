@@ -169,7 +169,7 @@ const PresentationList: React.FC = () => {
       </div>
       <div style={{ textAlign: "center" }}>
         <Pagination
-          count={10} //総ページ数
+          count={5} //総ページ数
           color="primary" //ページネーションの色
           onChange={(_, page) => setPage(page)} //変更されたときに走る関数。第2引数にページ番号が入る
           page={page} //現在のページ番号
