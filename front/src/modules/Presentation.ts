@@ -62,7 +62,7 @@ export const presentationSlice = createSlice({
 
     // 投稿取得
     builder.addCase(fetchPresentation.fulfilled, (state, action) => {
-      state.presentation = action.payload?.[0];
+      state.presentation = action.payload;
       state.error = false;
     });
 

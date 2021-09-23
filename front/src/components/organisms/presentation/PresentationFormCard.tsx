@@ -39,17 +39,6 @@ const PresentationFormCard: React.FC<Props> = ({ isEditPage = false }) => {
       state
   );
 
-  useEffect(() => {
-    dispatch(loginConfirm());
-  }, [state?.userState?.user?.id]);
-
-  useEffect(() => {
-    dispatch(fetchPresentation({ id: id }));
-    if (state?.presentationState?.presentation) {
-      formik.setValues(state?.presentationState?.presentation!);
-    }
-  }, [state?.presentationState?.presentation?.id]);
-
   const setTime = isEditPage ? 0 : 3000;
 
   const formik = useFormik<TPresentation>({
@@ -99,6 +88,17 @@ const PresentationFormCard: React.FC<Props> = ({ isEditPage = false }) => {
       }
     },
   });
+
+  useEffect(() => {
+    dispatch(loginConfirm());
+  }, [state?.userState?.user?.id]);
+
+  useEffect(() => {
+    dispatch(fetchPresentation({ id: id }));
+    if (state?.presentationState?.presentation) {
+      formik.setValues(state?.presentationState?.presentation!);
+    }
+  }, [state?.presentationState?.presentation?.id]);
 
   return (
     <>

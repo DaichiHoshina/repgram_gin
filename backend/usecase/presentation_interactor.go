@@ -78,10 +78,9 @@ func (interactor *PresentationInteractor) PresentationCreate(c Context) (present
 		Image:       url,
 	}
 
-	log.Println(postPresentation)
-
 	presentation, err = interactor.Presentation.Create(db, postPresentation)
 	if err != nil {
+		log.Println("投稿作成に失敗しました")
 		c.JSON(400, "投稿作成に失敗しました")
 		return
 	}
@@ -94,10 +93,10 @@ func (interactor *PresentationInteractor) PresentationUpdate(c Context) (present
 	if id := c.Param("id"); id != "" {
 
 		db.First(&presentation, id)
-
-		post := domain.Presentation{}
+		post := new(domain.Presentation)
 
 		if err := c.Bind(post); err != nil {
+			log.Println("投稿更新に失敗しました")
 			c.JSON(400, "投稿更新に失敗しました")
 		}
 
@@ -107,10 +106,12 @@ func (interactor *PresentationInteractor) PresentationUpdate(c Context) (present
 
 		presentation, err := interactor.Presentation.Update(db, postPresentation)
 		if err != nil {
+			log.Println("投稿更新に失敗しました")
 			c.JSON(400, "投稿更新に失敗しました")
 		}
 		return presentation, NewResultStatus(200, nil)
 	}
+	log.Println("IDが取得できませんでした")
 	c.JSON(400, "IDが取得できませんでした")
 	return
 }
