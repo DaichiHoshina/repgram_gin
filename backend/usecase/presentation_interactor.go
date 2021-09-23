@@ -116,12 +116,12 @@ func (interactor *PresentationInteractor) PresentationUpdate(c Context) (present
 	return
 }
 
-func (interactor *PresentationInteractor) PresentationDelete(id int) (presentation domain.Presentations, resultStatus *ResultStatus) {
+func (interactor *PresentationInteractor) PresentationDelete(id int) (presentation domain.Presentation, resultStatus *ResultStatus) {
 	db := interactor.DB.Connect()
 
 	presentation, err := interactor.Presentation.Delete(db, id)
 	if err != nil {
-		return domain.Presentations{}, NewResultStatus(404, err)
+		return domain.Presentation{}, NewResultStatus(404, err)
 	}
 	return presentation, NewResultStatus(200, nil)
 }

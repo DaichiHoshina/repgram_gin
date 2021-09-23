@@ -46,7 +46,9 @@ func (repo *PresentationRepository) Update(db *gorm.DB, postPresentation domain.
 }
 
 func (repo *PresentationRepository) Delete(db *gorm.DB, id int) (presentation domain.Presentation, err error) {
-	if result := db.First(&presentation, id).Delete(&presentation); result.Error != nil {
+	presentation = domain.Presentation{}
+	db.First(&presentation, id)
+	if result := db.Delete(&presentation); result.Error != nil {
 		return domain.Presentation{}, errors.New("投稿が削除出来ませんでした")
 	}
 	return presentation, nil
