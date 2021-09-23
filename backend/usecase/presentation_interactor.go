@@ -12,10 +12,18 @@ type PresentationInteractor struct {
 	Presentation PresentationRepository
 }
 
-func (interactor *PresentationInteractor) Presentations() (presentation domain.Presentations, resultStatus *ResultStatus) {
+func (interactor *PresentationInteractor) Presentations(c Context) (presentation domain.Presentations, resultStatus *ResultStatus) {
 	db := interactor.DB.Connect()
 
-	presentations, err := interactor.Presentation.FindAll(db)
+	page, _ := c.GetPostForm("page")
+	per, _ := c.GetPostForm("per")
+
+	post := domain.Paginate{
+		Page: page,
+		Per:  per,
+	}
+
+	presentations, err := interactor.Presentation.FindAll(db, post)
 	if err != nil {
 		log.Println("投稿が取得出来ませんでした")
 		return domain.Presentations{}, NewResultStatus(400, err)

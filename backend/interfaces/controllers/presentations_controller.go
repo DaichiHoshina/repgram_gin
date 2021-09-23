@@ -21,7 +21,7 @@ func NewPresentationsController(db database.DB) *PresentationsController {
 }
 
 func (controller *PresentationsController) Index(c Context) {
-	presentation, res := controller.Interactor.Presentations()
+	presentation, res := controller.Interactor.Presentations(c)
 	if res.Error != nil {
 		c.JSON(res.StatusCode, nil)
 		return

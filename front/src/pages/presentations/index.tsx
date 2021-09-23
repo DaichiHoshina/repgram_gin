@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TPresentation } from "../../modules/Presentation";
 import {
@@ -12,7 +12,9 @@ import {
   Typography,
   Grid,
   Card,
+  withStyles,
 } from "@material-ui/core";
+import MuiPagination from "@material-ui/lab/Pagination";
 import Layout from "../../components/Layout";
 import RecordAddLinkButton from "../../components/atoms/share/RecordAddLinkButton";
 import { red } from "@material-ui/core/colors";
@@ -91,18 +93,27 @@ const PresentationList: React.FC = () => {
 
   const classes = useStyles();
 
+  //ページ番号
+  const [page, setPage] = useState(1);
+
+  const Pagination = withStyles({
+    root: {
+      display: "inline-block", //中央寄せのためインラインブロックに変更
+    },
+  })(MuiPagination);
+
   // 投稿内容が変更されたとき
   useEffect(() => {
     dispatch(
       fetchPresentations({
-        page: 1,
-        per: 1,
+        page: page,
+        per: 6,
       })
     );
-  }, []);
+  }, [page]);
 
-   // ログインユーザーが変更されたとき
-   useEffect(() => {
+  // ログインユーザーが変更されたとき
+  useEffect(() => {
     dispatch(loginConfirm());
   }, []);
 
@@ -155,6 +166,14 @@ const PresentationList: React.FC = () => {
       </Grid>
       <div className={classes.fab}>
         {!!loginUser && <RecordAddLinkButton pathString="presentations" />}
+      </div>
+      <div style={{ textAlign: "center" }}>
+        <Pagination
+          count={10} //総ページ数
+          color="primary" //ページネーションの色
+          onChange={(e, page) => setPage(page)} //変更されたときに走る関数。第2引数にページ番号が入る
+          page={page} //現在のページ番号
+        />
       </div>
     </Layout>
   );
