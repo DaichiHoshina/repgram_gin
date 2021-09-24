@@ -11,9 +11,10 @@ interface Props {
   presentation?: TPresentation;
   loginUser?: TUser;
   key?: number;
+  page?: number;
 }
 
-const FavoriteIconButton: FC<Props> = ({ presentation, loginUser }: Props) => {
+const FavoriteIconButton: FC<Props> = ({ presentation, loginUser, page }: Props) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -43,8 +44,8 @@ const FavoriteIconButton: FC<Props> = ({ presentation, loginUser }: Props) => {
     );
     await dispatch(
       fetchPresentations({
-        page: 1,
-        per: 1,
+        page: page,
+        per: 6,
       })
     );
   };
@@ -64,8 +65,8 @@ const FavoriteIconButton: FC<Props> = ({ presentation, loginUser }: Props) => {
     );
     await dispatch(
       fetchPresentations({
-        page: 1,
-        per: 1,
+        page: page,
+        per: 6,
       })
     );
   };

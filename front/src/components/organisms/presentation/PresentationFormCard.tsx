@@ -76,7 +76,7 @@ const PresentationFormCard: React.FC<Props> = ({ isEditPage = false }) => {
           dispatch(
             fetchPresentations({
               page: 1,
-              per: 1,
+              per: 6,
             })
           );
           router.push("/presentations");

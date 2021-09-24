@@ -71,7 +71,7 @@ const DeleteOrButton: React.FC<Props> = ({ presentation }) => {
       await dispatch(
         fetchPresentations({
           page: 1,
-          per: 1,
+          per: 6,
         })
       );
     }

@@ -153,6 +153,7 @@ const PresentationList: React.FC = () => {
 
                   <div className="float-right">
                     <FavoriteIconButton
+                      page={page}
                       presentation={presentation}
                       loginUser={state?.userState?.user!}
                       key={index}
