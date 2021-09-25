@@ -53,20 +53,26 @@ func (repo *PresentationRepository) Create(db *gorm.DB, postPresentation domain.
 	return presentation, nil
 }
 
-func (repo *PresentationRepository) Update(db *gorm.DB, postPresentation domain.Presentation) (presentation domain.Presentation, err error) {
-	if result := db.Model(&presentation).Update(&postPresentation); result.Error != nil {
+func (repo *PresentationRepository) Update(db *gorm.DB, postPresentation domain.Presentation, modelPresentation domain.Presentation) (presentation domain.Presentation, err error) {
+	if result := db.Model(&modelPresentation).Update(&postPresentation); result.Error != nil {
 		return domain.Presentation{}, errors.New("投稿が更新出来ませんでした")
 	}
 	return presentation, nil
 }
 
 func (repo *PresentationRepository) Delete(db *gorm.DB, id int) (presentation domain.Presentation, err error) {
-	presentation = domain.Presentation{}
+	presentation = domain.Presentation{
+		ID: id,
+	}
+
 	if id <= 0 {
 		log.Println("IDがありません")
 		return domain.Presentation{}, errors.New("IDがありません")
 	}
-	if result := db.Delete(&presentation, id); result.Error != nil {
+	log.Println(id)
+	db.First(&presentation, id)
+
+	if result := db.Delete(&presentation); result.Error != nil {
 		return domain.Presentation{}, errors.New("投稿が削除出来ませんでした")
 	}
 	return presentation, nil

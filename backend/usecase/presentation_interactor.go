@@ -120,7 +120,7 @@ func (interactor *PresentationInteractor) PresentationUpdate(c Context) (present
 			Discription: post.Discription,
 		}
 
-		presentation, err := interactor.Presentation.Update(db, postPresentation)
+		presentation, err := interactor.Presentation.Update(db, postPresentation, presentation)
 		if err != nil {
 			log.Println("投稿更新に失敗しました")
 			c.JSON(400, "投稿更新に失敗しました")
