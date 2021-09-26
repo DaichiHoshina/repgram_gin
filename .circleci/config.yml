@@ -63,7 +63,7 @@ workflows:
           family: "${FRONT_ECS_SERVICE}"
           cluster-name: "${FRONT_ECS_CLUSTER}"
           service-name: "${FRONT_ECS_SERVICE}"
-          container-image-name-updates: "container=${FRONT_CONTAINER_NAME},tag=latest"
+          container-image-name-updates: "container=${FRONT_ECS_CLUSTER},tag=latest"
   backend:
     jobs:
       # - test
