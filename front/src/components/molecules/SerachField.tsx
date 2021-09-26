@@ -2,6 +2,8 @@ import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { useDispatch } from "react-redux";
+import { fetchPresentations } from "../../services/Presentation";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -46,15 +48,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchField() {
+  const dispatch = useDispatch();
+  const [inputText, setInputText] = React.useState("");
+
+  const pressEnter = (e: any) => {
+    if (e.key == "Enter") {
+      dispatch(
+        fetchPresentations({
+          query: e.target.value,
+          page: 1,
+          per: 6,
+        })
+      );
+    }
+  };
+
   return (
     <Search>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="検索"
-        inputProps={{ "aria-label": "search" }}
-      />
+      <StyledInputBase placeholder="検索" onKeyDown={(e) => pressEnter(e)} />
     </Search>
   );
 }

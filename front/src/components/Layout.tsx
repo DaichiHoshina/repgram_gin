@@ -51,7 +51,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, title }) => {
             </Toolbar>
           </div>
 
-          <div className="ml-auto mt-2 mr-2">
+          <div className="ml-auto mt-5 mr-2">
             <Typography component="h2" variant="h6" color="inherit">
               <SearchField />
             </Typography>

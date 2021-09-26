@@ -4,13 +4,14 @@ import { TPresentation } from "../modules/Presentation";
 
 export const fetchPresentations = createAsyncThunk(
   "presentations/fetchPresentations",
-  async (arg: { page?: number; per?: number }, thunkAPI) => {
-    const { page, per } = arg;
+  async (arg: { page?: number; per?: number; query?: string }, thunkAPI) => {
+    const { page, per, query } = arg;
     try {
       const url = `${process.env.API_URL}/presentations`;
 
       const response = await axios.get(url, {
         params: {
+          query: query,
           page: page,
           per: per,
         },
