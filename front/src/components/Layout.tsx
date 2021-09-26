@@ -11,8 +11,7 @@ import HeaderUserIcon from "../components/atoms/share/HeaderUserIcon";
 import { loginConfirm } from "../services/User";
 import { useDispatch } from "react-redux";
 import LoginIcon from "./atoms/share/LoginIcon";
-import { Search } from "@material-ui/icons";
-import SearchField from "./molecules/Serach";
+import SearchField from "./molecules/SerachField";
 export interface LayoutProps {
   children?: React.ReactNode;
   title: string;
@@ -49,12 +48,13 @@ export const Layout: React.FC<LayoutProps> = ({ children, title }) => {
                   Repgram
                 </Typography>
               </Link>
-              <div className="ml-auto mt-2 mr-2">
-                <Typography variant="h6" color="inherit" className="flex-grow">
-                  <SearchField />
-                </Typography>
-              </div>
             </Toolbar>
+          </div>
+
+          <div className="ml-auto mt-2 mr-2">
+            <Typography component="h2" variant="h6" color="inherit">
+              <SearchField />
+            </Typography>
           </div>
 
           {/* 右上のアイコン */}

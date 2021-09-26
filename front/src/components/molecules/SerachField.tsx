@@ -52,7 +52,7 @@ export default function SearchField() {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Search…"
+        placeholder="検索"
         inputProps={{ "aria-label": "search" }}
       />
     </Search>
