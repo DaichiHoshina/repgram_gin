@@ -1,6 +1,7 @@
 package infrastructure
 
 import (
+	"net/http"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -81,7 +82,12 @@ func (r *Routing) setRouting() {
 	r.Gin.POST("/likes", func(c *gin.Context) { likesController.Create(c) })
 	r.Gin.POST("/likes/delete", func(c *gin.Context) { likesController.Delete(c) })
 
-	// TODO:ヘルスチェック
+	// ヘルスチェック
+	r.Gin.GET("/health_check", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"status": "ok",
+		})
+})
 }
 
 func (r *Routing) Run() {
