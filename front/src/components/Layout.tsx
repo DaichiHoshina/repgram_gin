@@ -44,21 +44,25 @@ export const Layout: React.FC<LayoutProps> = ({ children, title }) => {
             <Toolbar variant="dense">
               <Link href="/presentations" color="inherit" underline="none">
                 {/* タイトルロゴ */}
-                <Typography variant="h6" color="inherit" className="flex-grow">
+                <Typography
+                  variant="h6"
+                  color="inherit"
+                  className="flex-grow my-auto"
+                >
                   <img src="/img/logo.png" className="object-contain h-12" />
                 </Typography>
               </Link>
             </Toolbar>
           </div>
 
-          <div className="ml-auto mt-2 mr-2">
+          <div className="ml-auto my-auto mr-2">
             <Typography component="h2" variant="h6" color="inherit">
               <SearchField />
             </Typography>
           </div>
 
           {/* 右上のアイコン */}
-          <div className="ml-auto mt-2 mr-2">
+          <div className="ml-auto my-auto mr-2">
             {isLogin ? <HeaderUserIcon /> : <LoginIcon />}
           </div>
         </div>
