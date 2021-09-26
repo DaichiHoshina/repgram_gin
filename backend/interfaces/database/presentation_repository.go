@@ -11,7 +11,7 @@ import (
 
 type PresentationRepository struct{}
 
-func (repo *PresentationRepository) FindAll(db *gorm.DB, paginate domain.Paginate) (presentations domain.Presentations, err error) {
+func (repo *PresentationRepository) FindAll(db *gorm.DB, paginate domain.Paginate, query string) (presentations domain.Presentations, err error) {
 	presentations = domain.Presentations{}
 
 	page := paginate.Page
@@ -21,13 +21,14 @@ func (repo *PresentationRepository) FindAll(db *gorm.DB, paginate domain.Paginat
 	// 先頭いくつスキップするかを取得
 	offset := (page - 1) * pageSize
 
-	log.Println(page, pageSize)
+	log.Println(query + "で検索", )
 
-	db.Order("created_at DESC").
+	db.Debug().Order("created_at DESC").
 		Limit(pageSize).
 		Offset(offset).
 		Preload("User").
 		Preload("Likes").
+		Where("discription LIKE ?", "%" + query + "%").
 		Find(&presentations)
 
 	return presentations, nil

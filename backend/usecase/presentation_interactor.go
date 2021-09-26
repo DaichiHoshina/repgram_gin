@@ -18,6 +18,7 @@ func (interactor *PresentationInteractor) Presentations(c Context) (presentation
 
 	page := c.Query("page")
 	per := c.Query("per")
+	searchQuery := c.Query("query")
 
 	page_int, _ := strconv.Atoi(page)
 	per_int, _ := strconv.Atoi(per)
@@ -29,7 +30,7 @@ func (interactor *PresentationInteractor) Presentations(c Context) (presentation
 
 	log.Println(page_int, per_int)
 
-	presentations, err := interactor.Presentation.FindAll(db, paginate)
+	presentations, err := interactor.Presentation.FindAll(db, paginate, searchQuery)
 	if err != nil {
 		log.Println("投稿が取得出来ませんでした")
 		return domain.Presentations{}, NewResultStatus(400, err)
