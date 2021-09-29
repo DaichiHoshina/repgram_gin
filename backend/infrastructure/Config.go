@@ -1,5 +1,7 @@
 package infrastructure
 
+import "os"
+
 type Config struct {
 	DB struct {
 		Production struct {
@@ -24,10 +26,10 @@ func NewConfig() *Config {
 
 	c := new(Config)
 
-	c.DB.Production.Host = "repgram_db"
-	c.DB.Production.Username = "user"
-	c.DB.Production.Password = "password"
-	c.DB.Production.DBName = "mydb"
+	c.DB.Production.Host = os.Getenv("DB_HOST")
+	c.DB.Production.Username = os.Getenv("DB_USERNAME")
+	c.DB.Production.Password = os.Getenv("DB_USERPASS")
+	c.DB.Production.DBName = os.Getenv("DB_NAME")
 
 	c.DB.Test.Host = "repgram_db"
 	c.DB.Test.Username = "user"
