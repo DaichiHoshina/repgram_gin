@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -67,7 +68,14 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	// Cookieをセット
 	cookie := new(http.Cookie)
 	cookie.Value = token
-	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", false, true)
+
+	if os.Getenv("ENV") == "local" {
+	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
+	}
+
+	if os.Getenv("ENV") == "production" {
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api.net", true, true)
+		}
 
 	fmt.Println(c.Cookie("jwt"))
 
