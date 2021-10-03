@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"strconv"
 
 	"github.com/DaichiHoshina/repgram_gin/backend/interfaces/database"
@@ -67,8 +68,10 @@ type Claims struct {
 func (controller *UsersController) Connect(c Context) {
 	// cookie取得
 	cookie, err := c.Cookie("jwt")
+
 	if err != nil {
-		c.JSON(400, "cookie is not found")
+		log.Println("cookie is not found")
+		c.JSON(400, nil)
 		return
 	}
 
@@ -77,7 +80,8 @@ func (controller *UsersController) Connect(c Context) {
 		return []byte("secret"), nil
 	})
 	if err != nil {
-		c.JSON(400, "user is not login")
+		log.Println("user is not login")
+		c.JSON(400, nil)
 		return
 	}
 
@@ -88,7 +92,8 @@ func (controller *UsersController) Connect(c Context) {
 
 	user, res := controller.Interactor.UserById(id_int)
 	if err != nil {
-		c.JSON(400, "user is not login")
+		log.Println("user is not login")
+		c.JSON(400, nil)
 		return
 	}
 	c.JSON(res.StatusCode, user)

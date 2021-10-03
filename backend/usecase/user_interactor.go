@@ -70,14 +70,12 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	cookie.Value = token
 
 	if os.Getenv("ENV") == "local" {
-	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
+	c.SetCookie("jwt", cookie.Value, 3600, "/", "", true, true)
 	}
 
 	if os.Getenv("ENV") == "production" {
-		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram.com", true, true)
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "", true, true)
 	}
-
-	fmt.Println(c.Cookie("jwt"))
 
 	return token, NewResultStatus(200, nil)
 }
@@ -94,7 +92,8 @@ func (interactor *UserInteractor) UserLogout(c Context) (resultStatus *ResultSta
 func (interactor *UserInteractor) UserCreate(c Context) (user domain.User, resultStatus *ResultStatus) {
 	post := new(domain.User)
 	if err := c.Bind(post); err != nil {
-		c.JSON(400, "post error")
+		log.Print("post error")
+		c.JSON(400, nil)
 		return
 	}
 
@@ -111,7 +110,8 @@ func (interactor *UserInteractor) UserCreate(c Context) (user domain.User, resul
 
 	user, err := interactor.User.Create(db, postUser)
 	if err != nil {
-		c.JSON(400, "ユーザー作成に失敗しました")
+		log.Print("ユーザー作成に失敗しました")
+		c.JSON(400, nil)
 		return
 	}
 
