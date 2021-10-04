@@ -1,6 +1,9 @@
 package controllers
 
-import "mime/multipart"
+import (
+	"mime/multipart"
+	"net/http"
+)
 
 type Context interface {
 	Param(string) string
@@ -12,4 +15,5 @@ type Context interface {
 	FormFile(name string) (*multipart.FileHeader, error)
 	GetPostForm(key string) (string, bool)
 	Query(key string) string
+	SetSameSite(samesite http.SameSite)
 }

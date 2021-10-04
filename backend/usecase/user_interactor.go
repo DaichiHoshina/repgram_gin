@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -68,20 +69,22 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	cookie := new(http.Cookie)
 	cookie.Value = token
 
-	// if os.Getenv("ENV") == "local" {
-	log.Println("cookieをセットする")
-	c.SetCookie("jwt", cookie.Value, 3600, "", "", false, false)
-	// }
+	c.SetSameSite(http.SameSiteNoneMode)
 
-	// if os.Getenv("ENV") == "production" {
-	// 	log.Println("productionでcookieをセットする")
-	// 	c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram.com", true, true)
-	// }
+	if os.Getenv("ENV") == "local" {
+		log.Println("cookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
+	}
 
-	// if os.Getenv("ENV") == "production" {
-	// 	log.Println("productionでcookieをセットする")
-	// 	c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api.net", true, true)
-	// }
+	if os.Getenv("ENV") == "production" {
+		log.Println("productionでcookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram.com", true, true)
+	}
+
+	if os.Getenv("ENV") == "production" {
+		log.Println("productionでcookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api.net", true, true)
+	}
 
 	// cookie取得に失敗したらエラーを出す
 	res, err := c.Cookie("jwt")
