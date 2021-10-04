@@ -75,12 +75,12 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	}
 
 	if os.Getenv("ENV") == "production" {
-		log.Println("cookieをセットする")
+		log.Println("productionでcookieをセットする")
 		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram.com", true, true)
 	}
 
 	if os.Getenv("ENV") == "production" {
-		log.Println("cookieをセットする")
+		log.Println("productionでcookieをセットする")
 		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api.net", true, true)
 	}
 

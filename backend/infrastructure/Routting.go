@@ -40,6 +40,7 @@ func NewRouting(db *DB) *Routing {
 			"PUT",
 			"DELETE",
 			"PATCH",
+			"OPTIONS",
 		},
 		// 許可したいHTTPリクエストヘッダ
 		AllowHeaders: []string{
@@ -49,6 +50,7 @@ func NewRouting(db *DB) *Routing {
 			"Content-Length",
 			"Accept-Encoding",
 			"Authorization",
+			"X-CSRF-Token",
 		},
 		// cookieなどの情報を必要とするかどうか
 		AllowCredentials: true,
@@ -87,7 +89,7 @@ func (r *Routing) setRouting() {
 		c.JSON(http.StatusOK, gin.H{
 			"status": "ok",
 		})
-})
+	})
 }
 
 func (r *Routing) Run() {
