@@ -74,12 +74,17 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	}
 
 	if os.Getenv("ENV") == "production" {
-		c.SetCookie("jwt", cookie.Value, 3600, "/", "", true, false)
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram.com", true, false)
 	}
 
-	// TODO:失敗したらエラーを出す
-
-
+	// cookieセットに失敗したらエラーを出す
+	res, err := c.Cookie("jwt")
+	if err != nil {
+		log.Println(res)
+		log.Println("cookie is not found")
+		c.JSON(400, nil)
+		return
+	}
 	return token, NewResultStatus(200, nil)
 }
 
