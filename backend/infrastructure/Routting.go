@@ -2,7 +2,6 @@ package infrastructure
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -19,14 +18,10 @@ type Routing struct {
 func NewRouting(db *DB) *Routing {
 	c := NewConfig()
 
-	r := &Routing{
-		DB:   db,
-		Gin:  gin.Default(),
-		Port: c.Routing.Port,
-	}
+	g := gin.Default()
 
 	// Corsの設定
-	r.Gin.Use(cors.New(cors.Config{
+	g.Use(cors.New(cors.Config{
 		// アクセスを許可したいアクセス元
 		AllowOrigins: []string{
 			"http://localhost:3000",
@@ -54,9 +49,13 @@ func NewRouting(db *DB) *Routing {
 		},
 		// cookieなどの情報を必要とするかどうか
 		AllowCredentials: true,
-		// preflightリクエストの結果をキャッシュする時間
-		MaxAge: 24 * time.Hour,
 	}))
+
+	r := &Routing{
+		DB:   db,
+		Gin:  g,
+		Port: c.Routing.Port,
+	}
 
 	r.setRouting()
 	return r
