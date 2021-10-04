@@ -70,7 +70,7 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 
 	// if os.Getenv("ENV") == "local" {
 	log.Println("cookieをセットする")
-	c.SetCookie("jwt", cookie.Value, 3600, "", "", false, true)
+	c.SetCookie("jwt", cookie.Value, 3600, "", "", false, false)
 	// }
 
 	// if os.Getenv("ENV") == "production" {
