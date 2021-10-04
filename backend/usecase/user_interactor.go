@@ -74,8 +74,11 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	}
 
 	if os.Getenv("ENV") == "production" {
-		c.SetCookie("jwt", cookie.Value, 3600, "/", "", true, true)
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "", true, false)
 	}
+
+	// TODO:失敗したらエラーを出す
+
 
 	return token, NewResultStatus(200, nil)
 }
