@@ -78,11 +78,6 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 
 	if os.Getenv("ENV") == "production" {
 		log.Println("productionでcookieをセットする")
-		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram.com", true, true)
-	}
-
-	if os.Getenv("ENV") == "production" {
-		log.Println("productionでcookieをセットする")
 		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api.net", true, true)
 	}
 
@@ -102,7 +97,18 @@ func (interactor *UserInteractor) UserLogout(c Context) (resultStatus *ResultSta
 	// Cookieをセット
 	cookie := new(http.Cookie)
 	cookie.Value = ""
-	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", false, true)
+
+	c.SetSameSite(http.SameSiteNoneMode)
+
+	if os.Getenv("ENV") == "local" {
+		log.Println("cookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
+	}
+
+	if os.Getenv("ENV") == "production" {
+		log.Println("productionでcookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api.net", true, true)
+	}
 
 	return NewResultStatus(200, nil)
 }
@@ -148,7 +154,19 @@ func (interactor *UserInteractor) UserCreate(c Context) (user domain.User, resul
 	// Cookieをセット
 	cookie := new(http.Cookie)
 	cookie.Value = token
-	c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", false, true)
+
+	c.SetSameSite(http.SameSiteNoneMode)
+
+	if os.Getenv("ENV") == "local" {
+		log.Println("cookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
+	}
+
+	if os.Getenv("ENV") == "production" {
+		log.Println("productionでcookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api.net", true, true)
+	}
+
 	if err != nil {
 		log.Print("クッキーのセットに失敗しました")
 		return domain.User{}, NewResultStatus(400, nil)
