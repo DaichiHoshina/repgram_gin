@@ -70,21 +70,29 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 	cookie.Value = token
 
 	if os.Getenv("ENV") == "local" {
-	c.SetCookie("jwt", cookie.Value, 3600, "/", "", true, true)
+		log.Println("cookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
 	}
 
 	if os.Getenv("ENV") == "production" {
-		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api", true, false)
+		log.Println("cookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram.com", true, true)
 	}
 
-	// cookieセットに失敗したらエラーを出す
+	if os.Getenv("ENV") == "production" {
+		log.Println("cookieをセットする")
+		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api.net", true, true)
+	}
+
+	// cookie取得に失敗したらエラーを出す
 	res, err := c.Cookie("jwt")
 	if err != nil {
-		log.Println(res, err)
+		log.Println(res)
 		log.Println("cookie is not found")
 		c.JSON(400, nil)
 		return
 	}
+
 	return token, NewResultStatus(200, nil)
 }
 
