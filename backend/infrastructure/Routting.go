@@ -18,44 +18,42 @@ type Routing struct {
 func NewRouting(db *DB) *Routing {
 	c := NewConfig()
 
-	// g := gin.Default()
+	g := gin.Default()
 
-	// g.Use(cors.Default())
-
-	// // Corsの設定
-	// g.Use(cors.New(cors.Config{
-	// 	// アクセスを許可したいアクセス元
-	// 	AllowOrigins: []string{
-	// 		"http://localhost:3000",
-	// 		"http://localhost:3002",
-	// 		"https://repgram.com",
-	// 	},
-	// 	// アクセスを許可したいHTTPメソッド
-	// 	AllowMethods: []string{
-	// 		"POST",
-	// 		"GET",
-	// 		"PUT",
-	// 		"DELETE",
-	// 		"PATCH",
-	// 		"OPTIONS",
-	// 	},
-	// 	// 許可したいHTTPリクエストヘッダ
-	// 	AllowHeaders: []string{
-	// 		"Access-Control-Allow-Credentials",
-	// 		"Access-Control-Allow-Headers",
-	// 		"Content-Type",
-	// 		"Content-Length",
-	// 		"Accept-Encoding",
-	// 		"Authorization",
-	// 		"X-CSRF-Token",
-	// 	},
-	// 	// cookieなどの情報を必要とするかどうか
-	// 	AllowCredentials: true,
-	// }))
+	// Corsの設定
+	g.Use(cors.New(cors.Config{
+		// アクセスを許可したいアクセス元
+		AllowOrigins: []string{
+			"http://localhost:3000",
+			"http://localhost:3002",
+			"https://repgram.com",
+		},
+		// アクセスを許可したいHTTPメソッド
+		AllowMethods: []string{
+			"POST",
+			"GET",
+			"PUT",
+			"DELETE",
+			"PATCH",
+			"OPTIONS",
+		},
+		// 許可したいHTTPリクエストヘッダ
+		AllowHeaders: []string{
+			"Access-Control-Allow-Credentials",
+			"Access-Control-Allow-Headers",
+			"Content-Type",
+			"Content-Length",
+			"Accept-Encoding",
+			"Authorization",
+			"X-CSRF-Token",
+		},
+		// cookieなどの情報を必要とするかどうか
+		AllowCredentials: true,
+	}))
 
 	r := &Routing{
 		DB:   db,
-		Gin:  gin.Default(),
+		Gin:  g,
 		Port: c.Routing.Port,
 	}
 
@@ -64,9 +62,6 @@ func NewRouting(db *DB) *Routing {
 }
 
 func (r *Routing) setRouting() {
-	// CORS設定
-	r.Gin.Use(cors.Default())
-
 	// ユーザー
 	usersController := controllers.NewUsersController(r.DB)
 	r.Gin.GET("/users/:id", func(c *gin.Context) { usersController.Show(c) })
