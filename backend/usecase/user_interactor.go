@@ -116,7 +116,7 @@ func (interactor *UserInteractor) UserLogout(c Context) (resultStatus *ResultSta
 func (interactor *UserInteractor) UserCreate(c Context) (user domain.User, resultStatus *ResultStatus) {
 	post := new(domain.User)
 	if err := c.Bind(post); err != nil {
-		log.Print("post error")
+		log.Print("post error", err)
 		c.JSON(400, nil)
 		return
 	}

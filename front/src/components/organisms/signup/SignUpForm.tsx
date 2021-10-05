@@ -40,7 +40,7 @@ const SignUpForm: FC<Props> = () => {
       className="flex-item flex flex-col px-8 py-12 w-1/2 max-w-5xl"
       style={{ color: "#ffffff", backgroundColor: "#242323" }}
     >
-      <h1 className="pb-8 text-center text-xl">Sign Up</h1>
+      <h1 className="pb-8 text-center text-xl">ユーザー登録</h1>
       <form action="" onSubmit={formik.handleSubmit}>
         <ul className="pb-10 space-y-3">
           <KeyValueColonPair
@@ -75,7 +75,7 @@ const SignUpForm: FC<Props> = () => {
           fullWidth
           className="border-none ring-transparent"
         >
-          Sign Up
+           登録する
         </Button>
       </form>
     </Card>
