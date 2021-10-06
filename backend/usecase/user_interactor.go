@@ -81,15 +81,6 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 		c.SetCookie("jwt", cookie.Value, 3600, "/", "repgram-api.net", true, true)
 	}
 
-	// cookie取得に失敗したらエラーを出す
-	res, err := c.Cookie("jwt")
-	if err != nil {
-		log.Println(res)
-		log.Println("cookie is not found")
-		c.JSON(400, nil)
-		return
-	}
-
 	return token, NewResultStatus(200, nil)
 }
 
