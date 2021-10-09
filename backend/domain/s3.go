@@ -65,11 +65,9 @@ func (a *AwsS3) UploadTest(file multipart.File, fileName string, extension strin
 
 	// Upload the file to S3.
 	result, err := a.Uploader.Upload(&s3manager.UploadInput{
-		// ACL の設定は重要
 		ACL:    aws.String("public-read"),
 		Body:   file,
 		Bucket: aws.String(a.Config.Aws.S3.Bucket),
-		// content-type の設定も忘れずに
 		ContentType: aws.String(contentType),
 		Key:         aws.String(a.Keys.Test + "/" + fileName + "." + extension),
 	})

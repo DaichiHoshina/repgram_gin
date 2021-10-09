@@ -13,6 +13,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// インターフェイスの構造体を定義
 type UserInteractor struct {
 	DB   DBRepository
 	User UserRepository
@@ -33,6 +34,7 @@ func (interactor *UserInteractor) UserById(id int) (user domain.UserForGet, resu
 func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStatus *ResultStatus) {
 	post := new(domain.User)
 	if err := c.Bind(post); err != nil {
+		log.Print("post error")
 		c.JSON(400, "post error")
 		return
 	}
@@ -43,7 +45,8 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 
 	user, err := interactor.User.FindByEmail(db, post.Email)
 	if err != nil {
-		c.JSON(400, "メールアドレスが存在しません")
+		log.Print("メールアドレスが存在しません")
+		c.JSON(400, nil)
 		return
 	}
 
