@@ -42,10 +42,10 @@ workflows:
   version: 2
   front:
     jobs:
-      # - test
+      - test
       - aws-ecr/build-and-push-image:
-          # requires:
-          #   - test
+          requires:
+            - test
           filters:
             branches:
               only: master
@@ -66,10 +66,10 @@ workflows:
           container-image-name-updates: "container=${FRONT_ECS_CLUSTER},tag=latest"
   backend:
     jobs:
-      # - test
+      - test
       - aws-ecr/build-and-push-image:
-          # requires:
-          #   - test
+          requires:
+            - test
           filters:
             branches:
               only: master
