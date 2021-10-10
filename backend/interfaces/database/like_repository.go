@@ -2,6 +2,7 @@ package database
 
 import (
 	"errors"
+	"log"
 
 	"github.com/jinzhu/gorm"
 
@@ -12,6 +13,7 @@ type LikeRepository struct{}
 
 func (repo *LikeRepository) Create(db *gorm.DB, postLike domain.Like) (like domain.Like, err error) {
 	if result := db.Create(&postLike); result.Error != nil {
+		log.Println("いいねが作成出来ませんでした")
 		return domain.Like{}, errors.New("いいねが作成出来ませんでした")
 	}
 	return like, nil
@@ -27,6 +29,7 @@ func (repo *LikeRepository) Delete(db *gorm.DB, postLike domain.Like) (like doma
 	db.First(&like, like)
 
 	if result := db.Delete(&like); result.Error != nil {
+		log.Println("いいねが削除出来ませんでした")
 		return domain.Like{}, errors.New("いいねが削除出来ませんでした")
 	}
 	return like, nil

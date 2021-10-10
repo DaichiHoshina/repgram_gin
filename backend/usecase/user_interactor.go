@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -34,8 +33,8 @@ func (interactor *UserInteractor) UserById(id int) (user domain.UserForGet, resu
 func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStatus *ResultStatus) {
 	post := new(domain.User)
 	if err := c.Bind(post); err != nil {
-		log.Print("post error")
-		c.JSON(400, "post error")
+		log.Print("paramsの取得に失敗しました")
+		c.JSON(400, "paramsの取得に失敗しました")
 		return
 	}
 
@@ -74,6 +73,7 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 
 	c.SetSameSite(http.SameSiteNoneMode)
 
+	// 環境によってドメインが変わるので、条件分岐させた
 	if os.Getenv("ENV") == "local" {
 		log.Println("cookieをセットする")
 		c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
@@ -90,10 +90,12 @@ func (interactor *UserInteractor) UserLogin(c Context) (token string, resultStat
 func (interactor *UserInteractor) UserLogout(c Context) (resultStatus *ResultStatus) {
 	// Cookieをセット
 	cookie := new(http.Cookie)
+	// 空値を設定
 	cookie.Value = ""
 
 	c.SetSameSite(http.SameSiteNoneMode)
 
+	// 環境によってドメインが変わるので、条件分岐させた
 	if os.Getenv("ENV") == "local" {
 		log.Println("cookieをセットする")
 		c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
@@ -110,7 +112,7 @@ func (interactor *UserInteractor) UserLogout(c Context) (resultStatus *ResultSta
 func (interactor *UserInteractor) UserCreate(c Context) (user domain.User, resultStatus *ResultStatus) {
 	post := new(domain.User)
 	if err := c.Bind(post); err != nil {
-		log.Print("post error", err)
+		log.Print("paramsの取得に失敗しました。", err)
 		c.JSON(400, nil)
 		return
 	}
@@ -151,6 +153,7 @@ func (interactor *UserInteractor) UserCreate(c Context) (user domain.User, resul
 
 	c.SetSameSite(http.SameSiteNoneMode)
 
+	// 環境によってドメインが変わるので、条件分岐させた
 	if os.Getenv("ENV") == "local" {
 		log.Println("cookieをセットする")
 		c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
@@ -166,7 +169,7 @@ func (interactor *UserInteractor) UserCreate(c Context) (user domain.User, resul
 		return domain.User{}, NewResultStatus(400, nil)
 	}
 
-	fmt.Println(c.Cookie("jwt"))
+	log.Println(c.Cookie("jwt"))
 
 	return user, NewResultStatus(200, nil)
 }

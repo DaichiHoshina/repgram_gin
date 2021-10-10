@@ -68,7 +68,6 @@ type Claims struct {
 func (controller *UsersController) Connect(c Context) {
 	// cookie取得
 	cookie, err := c.Cookie("jwt")
-
 	if err != nil {
 		log.Println("cookie is not found")
 		c.JSON(400, nil)

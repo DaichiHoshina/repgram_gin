@@ -28,8 +28,6 @@ func (interactor *PresentationInteractor) Presentations(c Context) (presentation
 		Per:  per_int,
 	}
 
-	log.Println(page_int, per_int)
-
 	presentations, err := interactor.Presentation.FindAll(db, paginate, searchQuery)
 	if err != nil {
 		log.Println("投稿が取得出来ませんでした")
@@ -62,11 +60,13 @@ func (interactor *PresentationInteractor) PresentationCreate(c Context) (present
 	// 画像投稿処理
 	upload_file, err := c.FormFile("file")
 	if err != nil {
+		log.Println("画像アップロードに失敗しました。")
 		return domain.Presentation{}, NewResultStatus(400, err)
 	}
 
 	src, err := upload_file.Open()
 	if err != nil {
+		log.Println("画像アップロードに失敗しました。")
 		return domain.Presentation{}, NewResultStatus(400, err)
 	}
 	defer src.Close()
@@ -76,6 +76,7 @@ func (interactor *PresentationInteractor) PresentationCreate(c Context) (present
 	url, err = awsS3.UploadTest(src, upload_file.Filename, "png")
 	if err != nil {
 		fmt.Print(err.Error())
+		log.Println("S３のアップロードに失敗しました。")
 		return domain.Presentation{}, NewResultStatus(400, err)
 	}
 
@@ -85,6 +86,7 @@ func (interactor *PresentationInteractor) PresentationCreate(c Context) (present
 
 	post := new(domain.Presentation)
 	if err := c.Bind(post); err != nil {
+		log.Println("paramの取得に失敗しました")
 		return domain.Presentation{}, NewResultStatus(400, err)
 	}
 
@@ -138,6 +140,7 @@ func (interactor *PresentationInteractor) PresentationDelete(id int) (presentati
 
 	presentation, err := interactor.Presentation.Delete(db, id)
 	if err != nil {
+		log.Println("投稿の削除に失敗しました。")
 		return domain.Presentation{}, NewResultStatus(400, err)
 	}
 	return presentation, NewResultStatus(200, nil)
