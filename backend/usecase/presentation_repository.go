@@ -13,3 +13,11 @@ type PresentationRepository interface {
 	Update(db *gorm.DB, postPresentation domain.Presentation, modelPresentation domain.Presentation) (presentation domain.Presentation, err error)
 	Delete(db *gorm.DB, id int) (presentation domain.Presentation, err error)
 }
+type presentationUsecase struct {
+	presentationRepo PresentationRepository // インターフェイスに依存しているだけで実装は存在しない
+}
+
+func NewPresentationUsecase(presentationRepo PresentationRepository) interface{} {
+	presentationUsecase := presentationUsecase{presentationRepo: presentationRepo}
+	return &presentationUsecase
+}

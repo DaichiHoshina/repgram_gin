@@ -2,7 +2,7 @@
 // Source: usecase/presentation_repository.go
 
 // Package mock_usecase is a generated GoMock package.
-package mock
+package usecase
 
 import (
 	reflect "reflect"
