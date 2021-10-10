@@ -4,39 +4,39 @@ orbs:
   aws-ecr: circleci/aws-ecr@7.0.0
   aws-ecs: circleci/aws-ecs@2.2.1
 
-# jobs:
-#   test:
-#     machine: true
+jobs:
+  test:
+    machine: true
 
-#     steps:
-#       - checkout
-#       - run:
-#           name: create docker network
-#           command: docker network create test-network
-#       - run:
-#           name: コンテナ起動
-#           command: docker-compose up -d
-#       - run:
-#           name: jestインストール
-#           command: docker-compose exec front yarn add jest@26.0.1
-#       - run:
-#           name: フロントLint
-#           command: make front-lint
-#       - run:
-#           name: フロントエンドテスト
-#           command: make front-test
-#       - run:
-#           name: マイグレーション
-#           command: make backend-migrate
-#       - run:
-#           name: staticcheckインストール
-#           command: docker-compose exec backend go get honnef.co/go/tools/cmd/staticcheck@latest
-#       - run:
-#           name: バックエンドLint
-#           command: make backend-lint
-#       - run:
-#           name: バックエンドテスト
-#           command: make backend-test
+    steps:
+      - checkout
+      - run:
+          name: create docker network
+          command: docker network create test-network
+      - run:
+          name: コンテナ起動
+          command: docker-compose up -d
+      - run:
+          name: jestインストール
+          command: docker-compose exec front yarn add jest@26.0.1
+      - run:
+          name: フロントLint
+          command: make front-lint
+      - run:
+          name: フロントエンドテスト
+          command: make front-test
+      - run:
+          name: マイグレーション
+          command: make backend-migrate
+      - run:
+          name: staticcheckインストール
+          command: docker-compose exec backend go get honnef.co/go/tools/cmd/staticcheck@latest
+      - run:
+          name: バックエンドLint
+          command: make backend-lint
+      - run:
+          name: バックエンドテスト
+          command: make backend-test
 
 workflows:
   version: 2
